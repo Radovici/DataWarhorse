@@ -1,2 +1,2 @@
-# DataWarhorse
-DataWarhorse uses Risk Management, Artificial Intelligence, &amp; Alternative Data to Construct and Optimize Portfolios
+# Fedago
+Our Federated Solution Allows for Data Access, Discovery, & Governance
