@@ -2,15 +2,6 @@
   <PropertyGroup>
     <!-- Enable analyzers -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <EnableStyleCopAnalyzers>true</EnableStyleCopAnalyzers>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>$(SolutionDir)CustomRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
-  <ItemGroup>
-    <!-- Include the StyleCop.Analyzers package for all projects -->
-    <PackageReference Include="StyleCop.Analyzers" Version="*" PrivateAssets="All" />
-    <!-- Link the shared stylecop.json file for all projects -->
-    <AdditionalFiles Include="$(SolutionDir)stylecop.json" />
-  </ItemGroup>
 </Project>
