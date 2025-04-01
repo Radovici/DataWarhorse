@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway.csproj", "{274CF98E-4649-41F8-91D4-DBE3DED065BC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{5B499771-A8F5-4C8A-BC2B-077956DD45B8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProvider", "DataProvider\DataProvider.csproj", "{121BB4AD-E281-4863-99D9-8BC0B9336615}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModels", "DataModels\DataModels.csproj", "{5E43DFC2-48B8-470A-9312-5326411142BB}"
@@ -33,14 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{274CF98E-4649-41F8-91D4-DBE3DED065BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{274CF98E-4649-41F8-91D4-DBE3DED065BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{274CF98E-4649-41F8-91D4-DBE3DED065BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{274CF98E-4649-41F8-91D4-DBE3DED065BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B499771-A8F5-4C8A-BC2B-077956DD45B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B499771-A8F5-4C8A-BC2B-077956DD45B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B499771-A8F5-4C8A-BC2B-077956DD45B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B499771-A8F5-4C8A-BC2B-077956DD45B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{121BB4AD-E281-4863-99D9-8BC0B9336615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{121BB4AD-E281-4863-99D9-8BC0B9336615}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{121BB4AD-E281-4863-99D9-8BC0B9336615}.Release|Any CPU.ActiveCfg = Release|Any CPU
