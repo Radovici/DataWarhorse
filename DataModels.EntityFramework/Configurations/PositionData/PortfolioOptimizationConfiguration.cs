@@ -22,11 +22,9 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.ToTable("PortfolioOptimizations", "dbo");
 
             entity.Property(e => e.OptimizationId)
-                .HasMaxLength(250)
-                .IsUnicode(false);
+                .HasMaxLength(250);
             entity.Property(e => e.ScoreFunction)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+                .HasMaxLength(50);
 
             entity.HasOne(d => d.Fund).WithMany(p => p.PortfolioOptimizations)
                 .HasForeignKey(d => d.FundId)

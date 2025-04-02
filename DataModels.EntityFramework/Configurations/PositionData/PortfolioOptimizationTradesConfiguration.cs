@@ -1,15 +1,6 @@
-﻿using DataModels.Interfaces;
-using DataModels.MarketData;
-using DataModels.PositionData;
-using DataModels.SecurityMaster;
+﻿using DataModels.PositionData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataModels.EntityFramework.Configurations.SecurityMaster
 {
@@ -22,8 +13,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.ToTable("PortfolioOptimizationTrades", "dbo");
 
             entity.Property(e => e.OptimizationId)
-                .HasMaxLength(250)
-                .IsUnicode(false);
+                .HasMaxLength(250);
 
             entity.HasOne(d => d.PortfolioOptimization).WithMany(p => p.PortfolioOptimizationTrades)
                 .HasForeignKey(d => new { d.OptimizationId, d.RunIndex })

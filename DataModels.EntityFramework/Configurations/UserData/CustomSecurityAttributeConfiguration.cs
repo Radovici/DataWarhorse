@@ -14,8 +14,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
 
             entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
             entity.Property(e => e.Value)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+                .HasMaxLength(100);
 
             entity.HasOne(d => d.User).WithMany(p => p.CustomSecurityAttributes)
                 .HasForeignKey(d => d.UserId)

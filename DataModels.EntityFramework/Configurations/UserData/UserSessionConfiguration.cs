@@ -11,12 +11,10 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.ToTable("UserSessions", "dbo");
 
             entity.Property(e => e.Comment)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+                .HasMaxLength(100);
             entity.Property(e => e.Expiration).HasColumnType("datetime");
             entity.Property(e => e.Guid)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+                .HasMaxLength(100);
 
             entity.HasOne(d => d.User).WithMany(p => p.UserSessions)
                 .HasForeignKey(d => d.UserId)
