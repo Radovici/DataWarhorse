@@ -1,5 +1,4 @@
-﻿using DataModels.Metadata;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataModels.EntityFramework.Configurations.SecurityMaster
@@ -11,8 +10,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.ToTable("TargetDirections", "dbo");
 
             entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+                .HasMaxLength(50);
         }
     }
 }

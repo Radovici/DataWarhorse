@@ -1,5 +1,4 @@
-﻿using DataModels.Metadata;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataModels.EntityFramework.Configurations.SecurityMaster
@@ -15,12 +14,10 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
             entity.Property(e => e.Date).HasColumnType("smalldatetime");
             entity.Property(e => e.Formula)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+                .HasMaxLength(50);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Notes)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+                .HasMaxLength(50);
 
             entity.HasOne(d => d.TargetDirection).WithMany(p => p.Targets)
                 .HasForeignKey(d => d.TargetDirectionId)

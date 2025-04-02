@@ -20,11 +20,9 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.ToTable("Funds", "dbo");
 
             entity.Property(e => e.DisplayName)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+                .HasMaxLength(100);
             entity.Property(e => e.Name)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+                .HasMaxLength(100);
         }
     }
 }
