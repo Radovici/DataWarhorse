@@ -8,7 +8,8 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
     {
         public void Configure(EntityTypeBuilder<Country> entity)
         {
-            entity.HasKey(e => e.Id).IsClustered(false);
+            entity.HasKey(e => e.Id)
+                .IsClustered(false);
 
             entity.ToTable("Countries", "dbo");
 
@@ -16,13 +17,16 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
                 .IsUnique()
                 .IsClustered();
 
-            entity.Property(e => e.Name).HasMaxLength(100);
-            entity.Property(e => e.Region).HasMaxLength(50);
-            entity.Property(e => e.SubRegion).HasMaxLength(50);
+            entity.Property(e => e.Name)
+                .HasMaxLength(100);
+            entity.Property(e => e.Region)
+                .HasMaxLength(50);
+            entity.Property(e => e.SubRegion)
+                .HasMaxLength(50);
 
-            entity.HasOne(lmb => lmb._currency) // if made public
+            entity.HasOne(lmb => lmb._currency) // masked by ICountry's Currency
                 .WithMany()
-                .HasForeignKey(lmb => lmb.CurrencyId) // again, if made public
+                .HasForeignKey(lmb => lmb.CurrencyId) // "internally" exposed
                 .HasConstraintName("FK_Countries_Currencies");
         }
     }

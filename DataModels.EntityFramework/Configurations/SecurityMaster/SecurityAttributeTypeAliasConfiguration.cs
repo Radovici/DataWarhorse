@@ -1,13 +1,6 @@
-﻿using DataModels.Interfaces;
-using DataModels.SecurityMaster;
+﻿using DataModels.SecurityMaster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataModels.EntityFramework.Configurations.SecurityMaster
 {
@@ -20,12 +13,10 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.ToTable("SecurityAttributeTypeAliases", "dbo");
 
             entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+                .HasMaxLength(50);
             entity.Property(e => e.Source)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
+                .HasMaxLength(50);
+            entity.Property(e => e.CreateDateTime);
 
             entity.HasOne(d => d.SecurityAttributeType).WithMany(p => p.SecurityAttributeTypeAliases)
                 .HasForeignKey(d => d.SecurityAttributeTypeId)
