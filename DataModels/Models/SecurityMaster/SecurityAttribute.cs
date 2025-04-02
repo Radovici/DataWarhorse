@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DataModels.SecurityMaster;
+﻿namespace DataModels.SecurityMaster;
 
 public partial class SecurityAttribute
 {
@@ -9,7 +6,7 @@ public partial class SecurityAttribute
 
     public int SecurityAttributeTypeId { get; set; }
 
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     public string Value { get; set; } = null!;
 
