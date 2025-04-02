@@ -18,7 +18,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
                 .IsClustered()
                 .IsUnique();
 
-            entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
+            entity.Property(e => e.CreateDateTime);
 
             entity.Property(e => e.Symbol)
                 .HasMaxLength(50)

@@ -18,8 +18,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.ToTable("SecurityTypes", "dbo");
 
             entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+                .HasMaxLength(50);
         }
     }
 }

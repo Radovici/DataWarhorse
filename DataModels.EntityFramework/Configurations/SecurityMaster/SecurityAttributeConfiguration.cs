@@ -1,13 +1,6 @@
-﻿using DataModels.Interfaces;
-using DataModels.SecurityMaster;
+﻿using DataModels.SecurityMaster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataModels.EntityFramework.Configurations.SecurityMaster
 {
@@ -19,11 +12,10 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
 
             entity.ToTable("SecurityAttributes", "dbo");
 
-            entity.Property(e => e.Date).HasColumnType("smalldatetime");
-            entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
+            entity.Property(e => e.Date); //.HasColumnType("smalldatetime"); // NOTE: most portable option, EF Core will pick the default for the provider
+            entity.Property(e => e.CreateDateTime);
             entity.Property(e => e.Value)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+                .HasMaxLength(100);
 
             entity.HasOne(d => d.SecurityAttributeType).WithMany(p => p.SecurityAttributes)
                 .HasForeignKey(d => d.SecurityAttributeTypeId)
