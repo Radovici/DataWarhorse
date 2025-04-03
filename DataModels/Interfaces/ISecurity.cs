@@ -4,13 +4,9 @@ namespace DataModels.Interfaces
 {
     public interface ISecurity : INameable
     {
-        int Id { get; }
-
         ISecurity? UnderlyingSecurity { get; }
 
         SecurityType SecurityType { get; }
-
-        int ExchangeId { get; }
 
         string Symbol { get; }
 
@@ -31,6 +27,10 @@ namespace DataModels.Interfaces
         //string Country { get; }
         //string Region { get; }
 
-        ICurrency? Currency { get; }
+        ICurrency Currency { get; }
+
+        IExchange Exchange { get; }
+
+        ICollection<ISecurityAttribute> SecurityAttributes { get; }
     }
 }
