@@ -3,7 +3,7 @@ using DataModels.SecurityMaster;
 
 namespace DataModels.MarketData;
 
-public partial class Exchange
+public partial class Exchange : IExchange
 {
     public int Id { get; private set; }
 
@@ -11,7 +11,7 @@ public partial class Exchange
 
     public string Name { get; private set; } = null!;
 
-    public string? Description { get; private set; }
+    public string Description { get; private set; } = null!;
 
     public bool Alternative { get; private set; }
 
