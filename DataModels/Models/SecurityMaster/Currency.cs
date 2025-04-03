@@ -1,14 +1,14 @@
 ﻿using DataModels.Interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace DataModels.SecurityMaster;
 
 public partial class Currency : ICurrency
 {
-    public int Id { get; set; }
+    public static Currency Empty = new Currency { Code = string.Empty, Name = "Empty" };
 
-    public string Code { get; set; } = null!;
+    public int Id { get; private set; }
 
-    public string Name { get; set; } = null!;
+    public string Code { get; private set; } = null!;
+
+    public string Name { get; private set; } = null!;
 }
