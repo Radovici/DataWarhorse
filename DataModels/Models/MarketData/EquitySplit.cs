@@ -2,7 +2,7 @@
 
 public partial class EquitySplit
 {
-    internal int SecurityId { get; private set; }
+    public int SecurityId { get; private set; }
 
     public DateTime Date { get; private set; }
 
