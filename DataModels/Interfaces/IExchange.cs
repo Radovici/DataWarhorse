@@ -2,7 +2,7 @@
 {
     public interface IExchange : INameable
     {
-        string Description { get; set; }
+        string Description { get; }
 
         ICountry? Country { get; }
     }
