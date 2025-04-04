@@ -1,4 +1,4 @@
-﻿namespace DataModels.MetaData;
+﻿namespace DataModels.Metadata;
 
 public partial class PriceTargetNotification {
     public int Id { get; set; }
