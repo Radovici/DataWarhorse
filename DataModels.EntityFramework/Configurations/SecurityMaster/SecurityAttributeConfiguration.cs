@@ -17,12 +17,14 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.Property(e => e.Value)
                 .HasMaxLength(100);
 
-            entity.HasOne(d => d.SecurityAttributeType).WithMany(p => p.SecurityAttributes)
+            entity.HasOne(d => d.SecurityAttributeType)
+                .WithMany(p => p.SecurityAttributes)
                 .HasForeignKey(d => d.SecurityAttributeTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SecurityAttributes_SecurityAttributeTypes");
 
-            entity.HasOne(d => d.Security).WithMany(p => p.SecurityAttributes)
+            entity.HasOne(d => d.Security)
+                .WithMany(p => p.SecurityAttributes)
                 .HasForeignKey(d => d.SecurityId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SecurityAttributes_Securities");

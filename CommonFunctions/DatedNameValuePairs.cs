@@ -15,11 +15,11 @@ namespace CommonFunctions
         {
             get
             {
-                return this[name, DateTime.Today];
+                return this[name, DateOnly.FromDateTime(DateTime.Today)];
             }
         }
 
-        public T this[string name, DateTime date]
+        public T this[string name, DateOnly date]
         {
             get
             {

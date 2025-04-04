@@ -16,7 +16,7 @@ namespace Tester
             var countryCurrencies = countries.Select(c => c.Currency).ToList(); // No async needed here
 
             var spxSecurities = await securityMasterContext.Securities
-                .Where(lmb => lmb.Symbol == "SPX" && lmb.ExchangeId == 4)
+                .Where(lmb => lmb.Symbol == "SPX" && lmb.Exchange.Name.ToLower().Equals("index")) // ExchangeId == 4)
                 .ToListAsync();
 
             int[] spxSecurityIds = spxSecurities.Select(lmb => lmb.Id).ToArray();

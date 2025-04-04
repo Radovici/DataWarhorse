@@ -10,6 +10,8 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
         {
             entity.ToTable("SecurityAttributeTypes", "dbo");
 
+            entity.HasKey(x => x.Id);
+
             entity.Property(e => e.Name)
                 .HasMaxLength(50);
         }
