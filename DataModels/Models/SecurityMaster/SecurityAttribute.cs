@@ -1,18 +1,22 @@
-﻿namespace DataModels.SecurityMaster;
+﻿using DataModels.Interfaces;
+
+namespace DataModels.SecurityMaster;
 
 public partial class SecurityAttribute
 {
-    public int SecurityId { get; set; }
+    public int SecurityId { get; private set; }
 
-    public int SecurityAttributeTypeId { get; set; }
+    public int SecurityAttributeTypeId { get; private set; }
 
-    public DateOnly Date { get; set; }
+    public DateOnly Date { get; private set; }
 
-    public string Value { get; set; } = null!;
+    public string Value { get; private set; } = null!;
 
-    public DateTime CreateDateTime { get; set; }
+    public DateTime CreateDateTime { get; private set; }
 
-    public virtual Security Security { get; set; } = null!;
+    public Security _security { get; private set; } = null!;
 
-    public virtual SecurityAttributeType SecurityAttributeType { get; set; } = null!;
+    public ISecurity Security => _security;
+
+    public SecurityAttributeType SecurityAttributeType { get; private set; } = null!;
 }
