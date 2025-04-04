@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using DataModels.EntityFramework.MarketData.Contexts;
-using DataModels.Metadata;
+﻿using DataModels.Metadata;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataModels.Metadata.Contexts;
