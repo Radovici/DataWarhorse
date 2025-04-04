@@ -24,7 +24,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.Property(e => e.SubRegion)
                 .HasMaxLength(50);
 
-            entity.HasOne(lmb => lmb._currency) // masked by ICountry's Currency
+            entity.HasOne(lmb => lmb.Currency) // masked by ICountry's Currency
                 .WithMany()
                 .HasForeignKey(lmb => lmb.CurrencyId) // "internally" exposed
                 .HasConstraintName("FK_Countries_Currencies");

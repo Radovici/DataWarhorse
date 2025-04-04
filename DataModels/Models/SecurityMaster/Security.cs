@@ -19,9 +19,9 @@ public partial class Security : ISecurity
 
     public DateTime CreateDateTime { get; private set; }
 
-    public ICollection<SecurityAttribute> _securityAttributes { get; private set; } = new List<SecurityAttribute>();
+    public ICollection<SecurityAttribute> SecurityAttributes { get; private set; } = new List<SecurityAttribute>();
 
-    public IEnumerable<ISecurityAttribute> SecurityAttributes => _securityAttributes.Cast<ISecurityAttribute>();
+    IEnumerable<ISecurityAttribute> ISecurity.SecurityAttributes => SecurityAttributes.Cast<ISecurityAttribute>();
 
     public virtual SecurityType SecurityType { get; private set; } = null!;
 
@@ -31,9 +31,9 @@ public partial class Security : ISecurity
 
     public double Multiplier => 1; // NOTE: this changes logically depending on security type (although may hae to be overridden and database driven)
 
-    public Exchange _exchange { get; private set; } = null!; // maybe better just to expose normal casing and expose UDM mdoels publicly
+    public Exchange Exchange { get; private set; } = null!; // maybe better just to expose normal casing and expose UDM mdoels publicly
 
-    public IExchange Exchange => _exchange;
+    IExchange ISecurity.Exchange => Exchange;
 
     public ICountry Country { get; } = null!;
 

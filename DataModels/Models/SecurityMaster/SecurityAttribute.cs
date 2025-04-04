@@ -2,7 +2,7 @@
 
 namespace DataModels.SecurityMaster;
 
-public partial class SecurityAttribute
+public partial class SecurityAttribute : ISecurityAttribute
 {
     public int SecurityId { get; private set; }
 
@@ -14,9 +14,13 @@ public partial class SecurityAttribute
 
     public DateTime CreateDateTime { get; private set; }
 
-    public Security _security { get; private set; } = null!;
+    public Security Security { get; private set; } = null!;
 
-    public ISecurity Security => _security;
+    ISecurity ISecurityAttribute.Security => Security;
 
     public SecurityAttributeType SecurityAttributeType { get; private set; } = null!;
+
+    public string Name => SecurityAttributeType.Name;
+
+    DateOnly IDatedNameValuePair<string>.Date => Date;
 }

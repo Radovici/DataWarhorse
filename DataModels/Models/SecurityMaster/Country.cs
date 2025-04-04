@@ -12,9 +12,9 @@ public partial class Country : ICountry
 
     public string? SubRegion { get; private set; }
 
-    internal int? CurrencyId { get; private set; }
+    public int? CurrencyId { get; private set; }
 
-    internal Currency? _currency { get; private set; }
+    public Currency? Currency { get; private set; }
 
-    public ICurrency? Currency => this._currency;
+    ICurrency? ICountry.Currency => this.Currency;
 }
