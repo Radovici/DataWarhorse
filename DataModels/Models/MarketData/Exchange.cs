@@ -7,7 +7,7 @@ public partial class Exchange : IExchange
 {
     public int Id { get; private set; }
 
-    private int? _countryId { get; set; }
+    public int? CountryId { get; private set; }
 
     public string Name { get; private set; } = null!;
 
@@ -21,7 +21,7 @@ public partial class Exchange : IExchange
 
     public string? CountryCode { get; private set; } // TODO: is this redundant against CountryId?
 
-    private Country? _country { get; set; }
+    public Country? Country { get; set; }
 
-    public ICountry? Country => Country;
+    ICountry? IExchange.Country => Country;
 }
