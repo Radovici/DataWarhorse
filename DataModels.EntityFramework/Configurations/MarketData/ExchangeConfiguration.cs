@@ -16,11 +16,9 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.Property(e => e.FigiCode).HasMaxLength(50);
             entity.Property(e => e.Name).HasMaxLength(50);
 
-            entity.Property("_countryId").HasColumnName("CountryId");
-
-            entity.HasOne("_country")
+            entity.HasOne(lmb => lmb.Country)
                 .WithMany()
-                .HasForeignKey("_countryId")
+                .HasForeignKey(lmb => lmb.CountryId)
                 .HasConstraintName("FK_Exchange_Country");
         }
     }
