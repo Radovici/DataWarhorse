@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataModels.EntityFramework.Contexts;
 using DataModels.SecurityMaster;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataModels.EntityFramework.SecurityMaster.Contexts;
 
-public partial class SecurityMasterContext : DbContext
+public partial class SecurityMasterContext
+    : ConfiguredDbContext
 {
     public SecurityMasterContext()
     {
@@ -31,10 +31,6 @@ public partial class SecurityMasterContext : DbContext
     public virtual DbSet<SecurityAttributeTypeAlias> SecurityAttributeTypeAliases { get; set; }
 
     public virtual DbSet<SecurityType> SecurityTypes { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=radovici.ddns.net;Database=DataWarehouse;User Id=eldar;Password=radovici;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
