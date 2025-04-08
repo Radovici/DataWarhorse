@@ -1,6 +1,8 @@
-﻿namespace DataModels.PositionData;
+﻿using DataModels.PositionData;
 
-public partial class Fee
+namespace DataModels.Models.PositionData;
+
+public partial class Fee // TODO: I would like to code this differently, more dynamic (there will be more fee types like hurdles and waterfalls)
 {
     public int Id { get; private set; }
 

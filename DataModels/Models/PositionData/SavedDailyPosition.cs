@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DataModels.PositionData;
+﻿namespace DataModels.PositionData;
 
 public partial class SavedDailyPosition
 {

@@ -1,6 +1,7 @@
 ﻿namespace DataModels.PositionData;
 
-public partial class Investment {
+public partial class Investment
+{
     public int Id { get; set; }
 
     public int FundId { get; set; }

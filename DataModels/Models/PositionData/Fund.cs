@@ -2,7 +2,8 @@
 
 namespace DataModels.PositionData;
 
-public partial class Fund : IFund {
+public partial class Fund : IFund
+{
     public static IFund Null = new Fund() { Id = 0 };
 
     public int Id { get; set; }

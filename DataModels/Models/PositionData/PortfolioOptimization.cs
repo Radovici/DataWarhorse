@@ -1,6 +1,7 @@
 ﻿namespace DataModels.PositionData;
 
-public partial class PortfolioOptimization {
+public partial class PortfolioOptimization
+{
     public string OptimizationId { get; set; } = null!;
 
     public int RunIndex { get; set; }
