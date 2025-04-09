@@ -22,7 +22,7 @@ jobs:
     - name: Setup .NET 9
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.100-preview.3'
+        dotnet-version: '9.x' # '0.100-preview.3'
 
     - name: Restore dependencies
       run: dotnet restore
