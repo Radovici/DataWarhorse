@@ -8,3 +8,4 @@
 /Gateway/obj
 /**/obj
 /**/bin
+# /**/*.development.json
