@@ -25,6 +25,6 @@
         double StartAum { get; }
         double EndAum { get; }
         IEnumerable<IDailyPosition> DailyPositions { get; }
-        IPosition Parent { get; }
+        IPosition? Parent { get; }
     }
 }

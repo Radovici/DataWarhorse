@@ -89,7 +89,7 @@ namespace PositionFramework
             get { return EndQuantity >= 0; }
         }
 
-        public IPosition Parent { get { return null; } } //HACK (20180716): IPosition Parent doesn't work for IDailyPositions
+        public IPosition? Parent { get { return null; } } // HACK (20180716): IPosition Parent doesn't work for IDailyPositions
         public IEnumerable<IDailyPosition> DailyPositions { get { return new[] { this }; } }
         public PositionGrouping Grouping { get { return this.GetGrouping(); } }
         public DateTime StartDate { get { return this.GetStartDate(); } }

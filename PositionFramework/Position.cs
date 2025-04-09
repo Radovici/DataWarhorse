@@ -1,9 +1,6 @@
 ﻿using DataLayer.Positions;
 using DataModels.Interfaces;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
 
 namespace PositionFramework
 {
@@ -11,7 +8,7 @@ namespace PositionFramework
     {
         private readonly string _guid = Guid.NewGuid().ToString();
 
-        private readonly IPosition _parent;
+        private readonly IPosition? _parent;
         private readonly PositionGrouping _positionGrouping;
         private readonly IEnumerable<IDailyPosition> _dailyPositions;
         private bool disposedValue;
@@ -31,7 +28,7 @@ namespace PositionFramework
             }
         }
 
-        public IPosition Parent
+        public IPosition? Parent
         {
             get
             {
