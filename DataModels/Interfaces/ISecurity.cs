@@ -4,6 +4,8 @@ namespace DataModels.Interfaces
 {
     public interface ISecurity : INameable
     {
+        int Id { get; }
+
         ISecurity? UnderlyingSecurity { get; }
 
         SecurityType SecurityType { get; } // TODO: should also be an interface
