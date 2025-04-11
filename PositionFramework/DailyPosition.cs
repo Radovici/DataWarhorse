@@ -1,30 +1,27 @@
 ﻿using DataLayer.Positions;
 using DataModels.Interfaces;
 using DataModels.PositionData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PositionFramework
 {
     public class DailyPosition : IDailyPosition
     {
         private readonly DateTime _date;
-        private readonly IEnumerable<ITrade> _trades;
-        private readonly DailyPosition _previousDailyPosition;
+        private readonly IEnumerable<ITrade>? _trades;
+        private readonly DailyPosition? _previousDailyPosition;
 
-        private readonly Fund _fund;
-        private readonly ISecurity _security;
+        private readonly Fund? _fund;
+        private readonly ISecurity? _security;
 
         private readonly double _unadjustedStartQuantity;
         private readonly double _splitRatio;
 
+        /// <summary>
+        /// A DailyPosition can be made up of a previous DailyPosition (last business date's DailyPosition) and today's trades.
+        /// </summary>
         public DailyPosition(DateTime dt, IEnumerable<ITrade> trades, DailyPosition previousDailyPosition)
         {
-            Fund fund = null;
-            ISecurity security = null;
+            ISecurity? security = null;
             if (trades != null && trades.Any())
             {
                 var funds = trades.Select(lmb => lmb.Fund).Distinct().ToList();
@@ -49,12 +46,12 @@ namespace PositionFramework
             //_splitRatio = Security.GetSplitRatio(Date, Date);
         }
 
-        public IFund Fund
+        public IFund? Fund
         {
             get { return _fund; }
         }
 
-        public ISecurity Security
+        public ISecurity? Security
         {
             get { return _security; }
         }
@@ -121,5 +118,7 @@ namespace PositionFramework
         public double StartAum => throw new NotImplementedException();
 
         public double EndAum => throw new NotImplementedException();
+
+        DateTime? IDailyPosition.Date => throw new NotImplementedException();
     }
 }
