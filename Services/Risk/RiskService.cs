@@ -1,5 +1,5 @@
 ﻿using DataModels.Interfaces;
-using Services.Securities;
+using Services.Security;
 using System.Collections.Specialized;
 
 namespace Services.Risk;
