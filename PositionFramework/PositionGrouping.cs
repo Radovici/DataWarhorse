@@ -1,6 +1,5 @@
-﻿using System.Diagnostics;
-using DataModels.Interfaces;
-using DataModels.PositionData;
+﻿using DataModels.Interfaces;
+using System.Diagnostics;
 
 namespace DataLayer.Positions
 {
@@ -44,7 +43,7 @@ namespace DataLayer.Positions
         private readonly DateTime? _date;
         private readonly IFund _fund;
         private readonly ISecurity _security;
-        private readonly ISecurity _underlyer;
+        private readonly ISecurity? _underlyer;
         private readonly string _sector; //NOTE: should be IClassification
         private readonly string _industry;
         private readonly string _country;
@@ -56,16 +55,16 @@ namespace DataLayer.Positions
 
         public static readonly PositionGrouping Empty = new PositionGrouping(string.Empty);
 
-        public PositionGrouping(DateTime? date = null, IFund fund = null, ISecurity security = null, ISecurity underlyer = null,
-            string sector = null, string industry = null, string country = null, string region = null, string currency = null,
-            bool? isLong = null, ISecurity factor = null)
+        public PositionGrouping(DateTime? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
+            string? sector = null, string? industry = null, string? country = null, string? region = null, string? currency = null,
+            bool? isLong = null, ISecurity? factor = null)
             : this(null, date, fund, security, underlyer, sector, industry, country, region, currency, isLong, factor)
         {
 
         }
 
-        public PositionGrouping(PositionGrouping positionGroupBy, DateTime? date = null, IFund fund = null, ISecurity security = null, ISecurity underlyer = null,
-            string sector = null, string industry = null, string country = null, string region = null, string currency = null, bool? isLong = null, ISecurity factor = null)
+        public PositionGrouping(PositionGrouping positionGroupBy, DateTime? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
+            string? sector = null, string? industry = null, string? country = null, string? region = null, string? currency = null, bool? isLong = null, ISecurity? factor = null)
             : this(GetKey(date, fund, security, underlyer, sector, industry, country, region, currency, isLong, factor))
         {
             if (positionGroupBy == null)
@@ -93,9 +92,9 @@ namespace DataLayer.Positions
             _key = key; //NOTE: need to use the explicit groupings because you need the objects OR string display names
         }
 
-        public static string GetKey(DateTime? date = null, IFund fund = null, ISecurity security = null, ISecurity underlyer = null,
-            string sector = null, string industry = null, string country = null, string region = null, string currency = null,
-            bool? isLong = null, ISecurity factor = null)
+        public static string GetKey(DateTime? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
+            string? sector = null, string? industry = null, string? country = null, string? region = null, string? currency = null,
+            bool? isLong = null, ISecurity? factor = null)
         {
             //string key = string.Format("Date={0}&Fund={1}&Security={2}&Underlyer={3}&Sector={4}&Industry={5}&Country={6}&Region={7}&Currency={8}",
             //    date == null ? string.Empty : date.Value.ToShortDateString(),
