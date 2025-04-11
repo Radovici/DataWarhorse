@@ -1,6 +1,5 @@
 ﻿using DataLayer.Positions;
 using DataModels.Interfaces;
-using DataModels.PositionData;
 
 namespace PositionFramework
 {
@@ -8,20 +7,19 @@ namespace PositionFramework
     {
         private readonly DateTime _date;
         private readonly IEnumerable<ITrade>? _trades;
-        private readonly DailyPosition? _previousDailyPosition;
+        private readonly DailyPosition _previousDailyPosition;
 
-        private readonly Fund? _fund;
-        private readonly ISecurity? _security;
+        private readonly IFund _fund;
+        private readonly ISecurity _security;
 
-        private readonly double _unadjustedStartQuantity;
-        private readonly double _splitRatio;
+        //private readonly double _unadjustedStartQuantity;
+        //private readonly double _splitRatio;
 
         /// <summary>
         /// A DailyPosition can be made up of a previous DailyPosition (last business date's DailyPosition) and today's trades.
         /// </summary>
         public DailyPosition(DateTime dt, IEnumerable<ITrade> trades, DailyPosition previousDailyPosition)
         {
-            ISecurity? security = null;
             if (trades != null && trades.Any())
             {
                 var funds = trades.Select(lmb => lmb.Fund).Distinct().ToList();
@@ -30,28 +28,35 @@ namespace PositionFramework
                 {
                     throw new ArgumentException(
                         string.Format("DailyPosition(..): there must be one fund or security, there are {0} fund(s) and {1} security(ies).",
-                            funds.Count(), securities.Count()));
+                            funds.Count(),
+                            securities.Count()));
                 }
-                //fund = funds.First();
-                security = securities.First();
+                _fund = funds.Single();
+                _security = securities.Single();
             }
 
             _date = dt;
             _trades = trades;
             _previousDailyPosition = previousDailyPosition;
-            //_fund = _previousDailyPosition != null ? _previousDailyPosition.Fund : fund; //Assume the two are the same (if there's a trade)
-            _security = _previousDailyPosition != null ? _previousDailyPosition.Security : security;
+            if (_fund == null)
+            {
+                _fund = _previousDailyPosition.Fund; // must get the fund from the trades or previous daily position (otherwise throw an exception)
+            }
+            if (_security == null)
+            {
+                _security = _previousDailyPosition.Security;
+            }
 
             //_unadjustedStartQuantity = UnadjustedStartQuantity;
             //_splitRatio = Security.GetSplitRatio(Date, Date);
         }
 
-        public IFund? Fund
+        public IFund Fund
         {
             get { return _fund; }
         }
 
-        public ISecurity? Security
+        public ISecurity Security
         {
             get { return _security; }
         }
@@ -67,7 +72,10 @@ namespace PositionFramework
         {
             get
             {
-                return _splitRatio * _unadjustedStartQuantity;
+                return _previousDailyPosition != null
+                    ? _previousDailyPosition.EndQuantity
+                    : 0;
+
             }
         }
 
@@ -118,7 +126,5 @@ namespace PositionFramework
         public double StartAum => throw new NotImplementedException();
 
         public double EndAum => throw new NotImplementedException();
-
-        DateTime? IDailyPosition.Date => throw new NotImplementedException();
     }
 }
