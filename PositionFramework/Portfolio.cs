@@ -1,7 +1,6 @@
 ﻿using CommonFunctions;
 using DataLayer.Positions;
 using DataModels.Interfaces;
-using DataModels.UserData;
 using System.Diagnostics;
 
 namespace PositionFramework
@@ -9,7 +8,7 @@ namespace PositionFramework
     public class Portfolio : Position
     {
         public Portfolio(IEnumerable<IDailyPosition> dailyPositions) : base(null, PositionGrouping.Empty, dailyPositions) //new DailyPositionGrouping(dailyPositions))
-        {           
+        {
         }
 
         public Portfolio(IEnumerable<ITrade> trades) : this(GetDailyPositions(trades))
@@ -22,9 +21,9 @@ namespace PositionFramework
             sw.Start();
             IEnumerable<DateTime> dates = new List<DateTime>(); // DataApi.Singleton.PricingStartDate.To(DataApi.Singleton.PricingEndDate, true).ToList();
             List<DailyPosition> dailyPositions = new List<DailyPosition>();
-            foreach (var tradesByDailyPositionGrouping in trades.GroupBy(lmb => new { lmb.Fund, lmb.Security }))
+            foreach (var tradesByDailyPositionGrouping in trades.GroupBy(lmb => new { lmb.Fund, lmb.Security })) // NOTE: GroupBy DailyPositionGrouping (finest granularity)
             {
-                Console.Write(string.Format("Creating DailyPositions for Fund={0}, Security={1}.", tradesByDailyPositionGrouping.Key.Fund.Name, tradesByDailyPositionGrouping.Key.Security.Display));
+                Console.Write(string.Format("Creating DailyPositions for Fund={0}, Security={1}.", tradesByDailyPositionGrouping.Key.Fund.Name, tradesByDailyPositionGrouping.Key.Security.Name));
                 DateTime maxSecurityDate = dates.Max(); // tradesByDailyPositionGrouping.Key.Security.MaxDate;
                 SortedDictionary<DateTime, IEnumerable<ITrade>> tradesByDate =
                     new SortedDictionary<DateTime, IEnumerable<ITrade>>(
@@ -32,13 +31,13 @@ namespace PositionFramework
                                                                                                  lmb => lmb.AsEnumerable())); //descending because IsLong=TRUE/1 before IsLong=FALSE/0
                 DateTime from = tradesByDate.Keys.Min(); //tradesByDailyPositionGrouping.Min(lmb => lmb.TradeDate));                
                 DateTime to = DateTimeExtensions.Min(tradesByDate.Keys.Max().AddBusinessDays(1), maxSecurityDate);
-                DailyPosition previousDailyPosition = null;
+                DailyPosition? previousDailyPosition = null; // first DailyPosition doesn't have a predecessor
                 double quantity = 0;
                 Console.Write(string.Format("\tFrom={0}, To={1}: ", from.ToShortDateString(), to.ToShortDateString()));
                 foreach (DateTime dt in dates.Where(lmb => lmb >= from && lmb <= maxSecurityDate))
                 {
                     Console.Write("."); // string.Format("{0}{1}", dt.ToShortDateString(), dt < maxSecurityDate ? "," : string.Empty));
-                    IEnumerable<ITrade> datedTrades;
+                    IEnumerable<ITrade>? datedTrades;
                     if (tradesByDate.TryGetValue(dt, out datedTrades))
                     {
                         dailyPositions.Add(previousDailyPosition = new DailyPosition(dt, datedTrades, previousDailyPosition));
