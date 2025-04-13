@@ -36,9 +36,9 @@ namespace DataLayer.Positions
         public static PositionGrouping.Function GroupByFundSecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, lmb.Fund, lmb.Security, null), MethodName); } }
         public static PositionGrouping.Function GroupByFundUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, lmb.Fund, null, lmb.Security.UnderlyingSecurity), MethodName); } }
         public static PositionGrouping.Function GroupBySecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, null, lmb.Security, null), MethodName); } }
-        public static PositionGrouping.Function GroupByUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(PositionGrouping.Empty, null, null, null, lmb.Security.UnderlyingSecurity), ); } }
+        public static PositionGrouping.Function GroupByUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(PositionGrouping.Empty, null, null, null, lmb.Security.UnderlyingSecurity), MethodName); } }
 
-        public static string? MethodName => new StackTrace().GetFrame(1)?.GetMethod()?.Name ?? throw new ArgumentOutOfRangeException("Unable to get MethodName from StackTrace().GetFrame(1)?.GetMethod()?.Name. Consider outputting details.");
+        public static string MethodName => new StackTrace().GetFrame(1)?.GetMethod()?.Name ?? throw new ArgumentOutOfRangeException("Unable to get MethodName from StackTrace().GetFrame(1)?.GetMethod()?.Name. Consider outputting details.");
 
         private readonly string _key;
         private readonly DateTime? _date;
