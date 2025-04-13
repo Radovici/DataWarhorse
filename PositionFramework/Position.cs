@@ -50,7 +50,7 @@ namespace PositionFramework
                 }
                 else if (numSecurities == 1)
                 {
-                    security = DailyPositions.First().Security.Display;
+                    security = DailyPositions.First().Security.Name;
                 }
                 else
                 {
