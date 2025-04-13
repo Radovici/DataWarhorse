@@ -27,31 +27,32 @@ namespace DataLayer.Positions
             }
         }
 
-        public static PositionGrouping.Function GroupByDate { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, null, null, null), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupByDateFund { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, lmb.Fund, null, null), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupByDateFundUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, lmb.Fund, null, lmb.Security.UnderlyingSecurity), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupByDateFundSecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, lmb.Fund, lmb.Security, null), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupByDateSecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, null, lmb.Security, null), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupByFund { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, lmb.Fund, null, null), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupByFundSecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, lmb.Fund, lmb.Security, null), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupByFundUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, lmb.Fund, null, lmb.Security.UnderlyingSecurity), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupBySecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, null, lmb.Security, null), new StackTrace().GetFrame(0).GetMethod().Name); } }
-        public static PositionGrouping.Function GroupByUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(PositionGrouping.Empty, null, null, null, lmb.Security.UnderlyingSecurity), new StackTrace().GetFrame(0).GetMethod().Name); } }
+        public static PositionGrouping.Function GroupByDate { get { return new PositionGrouping.Function((pos, dp) => new PositionGrouping(dp.Date, null, null, null), MethodName); } }
+        public static PositionGrouping.Function GroupByDateFund { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, lmb.Fund, null, null), MethodName); } }
+        public static PositionGrouping.Function GroupByDateFundUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, lmb.Fund, null, lmb.Security.UnderlyingSecurity), MethodName); } }
+        public static PositionGrouping.Function GroupByDateFundSecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, lmb.Fund, lmb.Security, null), MethodName); } }
+        public static PositionGrouping.Function GroupByDateSecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(lmb.Date, null, lmb.Security, null), MethodName); } }
+        public static PositionGrouping.Function GroupByFund { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, lmb.Fund, null, null), MethodName); } }
+        public static PositionGrouping.Function GroupByFundSecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, lmb.Fund, lmb.Security, null), MethodName); } }
+        public static PositionGrouping.Function GroupByFundUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, lmb.Fund, null, lmb.Security.UnderlyingSecurity), MethodName); } }
+        public static PositionGrouping.Function GroupBySecurity { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(null, null, lmb.Security, null), MethodName); } }
+        public static PositionGrouping.Function GroupByUnderlyer { get { return new PositionGrouping.Function((pos, lmb) => new PositionGrouping(PositionGrouping.Empty, null, null, null, lmb.Security.UnderlyingSecurity), ); } }
+
+        public static string? MethodName => new StackTrace().GetFrame(1)?.GetMethod()?.Name ?? throw new ArgumentOutOfRangeException("Unable to get MethodName from StackTrace().GetFrame(1)?.GetMethod()?.Name. Consider outputting details.");
 
         private readonly string _key;
-
         private readonly DateTime? _date;
-        private readonly IFund _fund;
-        private readonly ISecurity _security;
+        private readonly IFund? _fund;
+        private readonly ISecurity? _security;
         private readonly ISecurity? _underlyer;
-        private readonly string _sector; //NOTE: should be IClassification
-        private readonly string _industry;
-        private readonly string _country;
-        private readonly string _region;
-        private readonly string _currency;
+        private readonly string? _sector; //NOTE: should be IClassification
+        private readonly string? _industry;
+        private readonly string? _country;
+        private readonly string? _region;
+        private readonly string? _currency;
 
         private readonly bool? _isLong;
-        private readonly ISecurity _factor;
+        private readonly ISecurity? _factor;
 
         public static readonly PositionGrouping Empty = new PositionGrouping(string.Empty);
 
@@ -63,7 +64,7 @@ namespace DataLayer.Positions
 
         }
 
-        public PositionGrouping(PositionGrouping positionGroupBy, DateTime? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
+        public PositionGrouping(PositionGrouping? positionGroupBy, DateTime? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
             string? sector = null, string? industry = null, string? country = null, string? region = null, string? currency = null, bool? isLong = null, ISecurity? factor = null)
             : this(GetKey(date, fund, security, underlyer, sector, industry, country, region, currency, isLong, factor))
         {
@@ -109,8 +110,8 @@ namespace DataLayer.Positions
             //    );
             string key = "Date=" + (date ?? default(DateTime)).ToString("yyyyMMdd")
                 + "&Fund=" + (fund ?? DataModels.PositionData.Fund.Null).Id
-                + "&Security=" + (security ?? DataModels.SecurityMaster.Security.Null).Display
-                + "&Underlyer=" + (underlyer ?? DataModels.SecurityMaster.Security.Null).Display
+                + "&Security=" + (security ?? DataModels.SecurityMaster.Security.Null).Name
+                + "&Underlyer=" + (underlyer ?? DataModels.SecurityMaster.Security.Null).Name
                 + "&Sector=" + (sector ?? string.Empty) //GicsId.Empty).Id
                 + "&Industry=" + (industry ?? string.Empty) //GicsId.Empty).Id
                 + "&Country=" + (country ?? string.Empty)
@@ -122,18 +123,18 @@ namespace DataLayer.Positions
         }
 
         public DateTime? Date { get { return _date; } }
-        public IFund Fund { get { return _fund; } }
-        public ISecurity Security { get { return _security; } }
-        public ISecurity Underlyer { get { return _underlyer; } }
+        public IFund? Fund { get { return _fund; } }
+        public ISecurity? Security { get { return _security; } }
+        public ISecurity? Underlyer { get { return _underlyer; } }
 
-        public string Sector { get { return _sector; } }
-        public string Industry { get { return _industry; } }
-        public string Country { get { return _country; } }
-        public string Region { get { return _region; } }
-        public string Currency { get { return _currency; } }
+        public string? Sector { get { return _sector; } }
+        public string? Industry { get { return _industry; } }
+        public string? Country { get { return _country; } }
+        public string? Region { get { return _region; } }
+        public string? Currency { get { return _currency; } }
 
         public bool? IsLong { get { return _isLong; } }
-        public ISecurity Factor { get { return _factor; } }
+        public ISecurity? Factor { get { return _factor; } }
 
         public string Key { get { return _key; } }
 
@@ -142,20 +143,21 @@ namespace DataLayer.Positions
             return _key.GetHashCode();
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            PositionGrouping parameter = (PositionGrouping)obj;
+            PositionGrouping? parameter = obj as PositionGrouping;
+            if (parameter == null) return false;
             return _key == parameter._key;
+        }
+
+        public int CompareTo(PositionGrouping? other)
+        {
+            return _key.CompareTo(other?._key);
         }
 
         public override string ToString()
         {
             return _key;
-        }
-
-        public int CompareTo(PositionGrouping other)
-        {
-            return _key.CompareTo(other._key);
         }
     }
 }
