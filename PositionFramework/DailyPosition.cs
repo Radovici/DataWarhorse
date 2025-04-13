@@ -7,7 +7,7 @@ namespace PositionFramework
     {
         private readonly DateTime _date;
         private readonly IEnumerable<ITrade>? _trades;
-        private readonly DailyPosition _previousDailyPosition;
+        private readonly DailyPosition? _previousDailyPosition;
 
         private readonly IFund _fund;
         private readonly ISecurity _security;
@@ -18,7 +18,7 @@ namespace PositionFramework
         /// <summary>
         /// A DailyPosition can be made up of a previous DailyPosition (last business date's DailyPosition) and today's trades.
         /// </summary>
-        public DailyPosition(DateTime dt, IEnumerable<ITrade> trades, DailyPosition previousDailyPosition)
+        public DailyPosition(DateTime dt, IEnumerable<ITrade>? trades, DailyPosition? previousDailyPosition)
         {
             if (trades != null && trades.Any())
             {
@@ -38,14 +38,23 @@ namespace PositionFramework
             _date = dt;
             _trades = trades;
             _previousDailyPosition = previousDailyPosition;
-            if (_fund == null)
+            if (_previousDailyPosition != null)
             {
-                _fund = _previousDailyPosition.Fund; // must get the fund from the trades or previous daily position (otherwise throw an exception)
+                if (_fund == null)
+                {
+                    _fund = _previousDailyPosition.Fund; // must get the fund from the trades or previous daily position (otherwise throw an exception)
+                }
+                if (_security == null)
+                {
+                    _security = _previousDailyPosition.Security;
+                }
             }
-            if (_security == null)
+
+            if (_fund == null || _security == null)
             {
-                _security = _previousDailyPosition.Security;
+                throw new NullReferenceException($"DailyPosition must have both fund and security.");
             }
+            // TODO: validate DailyPosition; throw exception if DailyPosition is unvalidated (doesn't have fund or security or something)
 
             //_unadjustedStartQuantity = UnadjustedStartQuantity;
             //_splitRatio = Security.GetSplitRatio(Date, Date);
@@ -99,7 +108,7 @@ namespace PositionFramework
         public PositionGrouping Grouping { get { return this.GetGrouping(); } }
         public DateTime StartDate { get { return this.GetStartDate(); } }
         public DateTime EndDate { get { return this.GetEndDate(); } }
-        public double Pnl { get { return this.GetPnl(Trades); } }
+        public double Pnl => throw new NotImplementedException(); // TODO: implement this -- bit tricky with intraday trades and varying security types.
 
         public double OpenMarketValue => throw new NotImplementedException();
 
