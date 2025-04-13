@@ -1,9 +1,4 @@
 ﻿using DataModels.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PositionFramework
 {
@@ -11,7 +6,7 @@ namespace PositionFramework
     {
         public static Portfolio GetPortfolio(this IPosition position)
         {
-            IPosition parent = position.Parent;
+            IPosition? parent = position.Parent;
             if (parent != null)
             {
                 parent = parent.GetPortfolio();
@@ -20,7 +15,7 @@ namespace PositionFramework
             {
                 parent = position;
             }
-            return parent as Portfolio; // NOTE: use IPortfolio
+            return (Portfolio)parent; // root parent should be a portfolio (or IPortfolio) by _our_ definition
         }
     }
 }
