@@ -1,7 +1,9 @@
 ﻿using DataModels.EntityFramework.MarketData.Contexts;
+using DataModels.EntityFramework.PositionInformation.Contexts;
 using DataModels.EntityFramework.SecurityMaster.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.Position;
 using Services.Security;
 
 namespace Tester;
@@ -17,6 +19,9 @@ class Program
 
         try
         {
+            var tradeTest = services.GetRequiredService<TradeTest>();
+            var trades = await tradeTest.GetTradesAsync();
+
             var test = services.GetRequiredService<SecurityTest>(); // Resolve App from DI
             await test.RunAsync();
         }
@@ -35,7 +40,11 @@ class Program
                 services.AddDbContext<MarketDataContext>();
                 services.AddScoped<ISecurityService, SecurityService>();
 
+                services.AddDbContext<PositionDataContext>();
+                services.AddScoped<ITradeService, TradeService>();
+
                 // Register Application Services
                 services.AddTransient<SecurityTest>(); // Main application logic
+                services.AddTransient<TradeTest>(); // Main application logic
             });
 }
