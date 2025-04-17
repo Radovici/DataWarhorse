@@ -14,15 +14,10 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
 
-    # - name: Setup .NET
-    #   uses: actions/setup-dotnet@v4
-    #   with:
-    #     dotnet-version: '8.x'
-
     - name: Setup .NET 9
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.x' # '0.100-preview.3'
+        dotnet-version: '9.x'
 
     - name: Restore dependencies
       run: dotnet restore
@@ -31,4 +26,17 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test --configuration Release --no-build --logger trx
+      run: dotnet test --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: '**/TestResults/*.trx'
+
+    - name: Show test summary in GitHub UI
+      uses: dorny/test-reporter@v1
+      with:
+        name: Test Results
+        path: '**/TestResults/*.trx'
+        reporter: dotnet-trx
