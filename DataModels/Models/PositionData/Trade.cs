@@ -1,6 +1,8 @@
-﻿namespace DataModels.PositionData;
+﻿using DataModels.Interfaces;
 
-public partial class Trade
+namespace DataModels.PositionData;
+
+public partial class Trade : ITrade
 {
     public int TradeId { get; set; }
 
@@ -17,4 +19,21 @@ public partial class Trade
     public DateTime CreateDateTime { get; set; }
 
     public virtual Fund Fund { get; set; } = null!;
+
+    public ISecurity Security => throw new NotImplementedException();
+
+    public double MarketValue => throw new NotImplementedException();
+
+    public double DeltaExposure => throw new NotImplementedException();
+
+    public double Cost => throw new NotImplementedException();
+
+    public double Commission => throw new NotImplementedException();
+
+    IFund ITrade.Fund => throw new NotImplementedException();
+
+    public double GetOpenDeltaExposure(bool isLong)
+    {
+        throw new NotImplementedException();
+    }
 }

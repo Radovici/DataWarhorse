@@ -1,9 +1,9 @@
-﻿using DataModels.PositionData;
+﻿using DataModels.Interfaces;
 
 namespace Services.Position
 {
     public interface ITradeService
     {
-        Task<IEnumerable<Trade>> GetTradesAsync();
+        Task<IEnumerable<ITrade>> GetTradesAsync();
     }
 }
