@@ -1,4 +1,6 @@
-﻿namespace Core.Interfaces.Services
+﻿using Core.Interfaces.DataModels;
+
+namespace Core.Interfaces.Services
 {
     public interface IMarketDataService
     {

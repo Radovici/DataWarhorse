@@ -1,14 +1,14 @@
-﻿using DataModels.Interfaces;
-using Services.Security;
+﻿using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
 
 namespace UnifiedDataModels.Models.PositionData
 {
     public class Trade : ITrade
     {
         private DataModels.PositionData.Trade _trade;
-        private SecurityService _securityService;
+        private ISecurityService _securityService;
 
-        public Trade(DataModels.PositionData.Trade trade, SecurityService securityService)
+        public Trade(DataModels.PositionData.Trade trade, ISecurityService securityService)
         {
             _trade = trade;
             _securityService = securityService;
@@ -18,7 +18,7 @@ namespace UnifiedDataModels.Models.PositionData
 
         public ISecurity Security => _securityService.GetSecurity(this._trade.SecurityId)!;
 
-        public IFund Fund => this._trade.Fund;
+        public IFund Fund => (IFund)_trade.Fund;
 
         public DateTime TradeDate => this._trade.TradeDate;
 

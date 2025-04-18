@@ -1,4 +1,4 @@
-﻿using DataModels.Interfaces;
+﻿using Core.Interfaces.DataModels;
 using DataModels.SecurityMaster;
 
 namespace DataModels.MarketData;
@@ -23,5 +23,5 @@ public partial class Exchange : IExchange
 
     public Country? Country { get; set; }
 
-    ICountry? IExchange.Country => Country;
+    ICountry? IExchange.Country => (ICountry?)Country;
 }

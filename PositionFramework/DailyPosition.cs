@@ -1,5 +1,5 @@
-﻿using DataLayer.Positions;
-using DataModels.Interfaces;
+﻿using Core.Interfaces.DataModels;
+using DataLayer.Positions;
 
 namespace PositionFramework
 {

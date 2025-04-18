@@ -1,6 +1,6 @@
-﻿using DataModels.EntityFramework.MarketData.Contexts;
+﻿using Core.Interfaces.DataModels;
+using DataModels.EntityFramework.MarketData.Contexts;
 using DataModels.EntityFramework.SecurityMaster.Contexts;
-using DataModels.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Tester

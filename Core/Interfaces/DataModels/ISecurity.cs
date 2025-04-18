@@ -1,6 +1,4 @@
-﻿using DataModels.SecurityMaster;
-
-namespace DataModels.Interfaces
+﻿namespace Core.Interfaces.DataModels
 {
     public interface ISecurity : INameable
     {
@@ -8,7 +6,7 @@ namespace DataModels.Interfaces
 
         ISecurity? UnderlyingSecurity { get; }
 
-        SecurityType SecurityType { get; } // TODO: should also be an interface
+        ISecurityType SecurityType { get; } // TODO: should also be an interface
 
         string Symbol { get; }
 

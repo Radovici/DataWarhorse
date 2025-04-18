@@ -1,5 +1,5 @@
-﻿using PositionFramework;
-using Services.Position;
+﻿using Core.Interfaces.Services;
+using PositionFramework;
 
 namespace Tester
 {

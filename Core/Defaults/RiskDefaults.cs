@@ -1,4 +1,4 @@
-﻿namespace Services.Risk
+﻿namespace Core.Defaults
 {
     public static class RiskDefaults
     {

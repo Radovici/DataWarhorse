@@ -1,6 +1,6 @@
 ﻿using CommonFunctions;
+using Core.Interfaces.DataModels;
 using DataLayer.Positions;
-using DataModels.Interfaces;
 using System.Diagnostics;
 
 namespace PositionFramework

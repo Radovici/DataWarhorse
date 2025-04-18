@@ -1,4 +1,4 @@
-﻿using DataModels.Interfaces;
+﻿using Core.Interfaces.DataModels;
 using DataModels.MarketData;
 
 namespace DataModels.SecurityMaster;
@@ -40,4 +40,6 @@ public partial class Security : ISecurity
     public double Multiplier => 1; // NOTE: this changes logically depending on security type (although may hae to be overridden and database driven)
 
     public string Name => Symbol;
+
+    ISecurityType ISecurity.SecurityType => throw new NotImplementedException();
 }

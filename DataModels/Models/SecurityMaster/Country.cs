@@ -1,4 +1,4 @@
-﻿using DataModels.Interfaces;
+﻿using Core.Interfaces.DataModels;
 
 namespace DataModels.SecurityMaster;
 
@@ -16,5 +16,5 @@ public partial class Country : ICountry
 
     public Currency? Currency { get; private set; }
 
-    ICurrency? ICountry.Currency => this.Currency;
+    ICurrency? ICountry.Currency => (ICurrency?)this.Currency;
 }

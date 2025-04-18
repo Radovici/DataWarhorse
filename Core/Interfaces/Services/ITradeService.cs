@@ -1,6 +1,6 @@
-﻿using DataModels.Interfaces;
+﻿using Core.Interfaces.DataModels;
 
-namespace Services.Position
+namespace Core.Interfaces.Services
 {
     public interface ITradeService
     {

@@ -1,5 +1,7 @@
-﻿using DataModels.Interfaces;
-using Services.Security;
+﻿using Core.Defaults;
+using Core.Enums;
+using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
 using System.Collections.Specialized;
 
 namespace Services.Risk;
@@ -13,7 +15,7 @@ public class RiskService : IRiskService
         _securityService = securityService;
     }
 
-    public RiskParameters CreateRiskParameters(NameValueCollection queryString, RiskParameters.RiskParameterType riskParameterType = RiskParameters.RiskParameterType.Beta)
+    public RiskParameters CreateRiskParameters(NameValueCollection queryString, RiskParameterType riskParameterType = RiskParameterType.Beta)
     {
         if (queryString == null)
         {
@@ -28,9 +30,9 @@ public class RiskService : IRiskService
         double decay = GetDecay(queryString["Decay"], riskParameterType);
         double confidence = GetConfidence(queryString["Confidence"], riskParameterType);
         string type = queryString["Type"] ?? RiskDefaults.DefaultValueAtRiskType;
-        RiskParameters.RiskParameterPeriodType period = Enum.TryParse(queryString["Period"], out RiskParameters.RiskParameterPeriodType parsedPeriod)
+        RiskParameterPeriodType period = Enum.TryParse(queryString["Period"], out RiskParameterPeriodType parsedPeriod)
             ? parsedPeriod
-            : RiskParameters.RiskParameterPeriodType.Weekly;
+            : RiskParameterPeriodType.Weekly;
 
         return new RiskParameters(security, dt, range, decay, confidence, type, period);
     }
@@ -52,7 +54,7 @@ public class RiskService : IRiskService
         return 0; // TODO: Implement standard deviation calculation
     }
 
-    private static int GetRange(string? value, RiskParameters.RiskParameterType type, DateTime dt)
+    private static int GetRange(string? value, RiskParameterType type, DateTime dt)
     {
         if (int.TryParse(value, out int range))
         {
@@ -61,18 +63,18 @@ public class RiskService : IRiskService
 
         return type switch
         {
-            RiskParameters.RiskParameterType.Volatility => RiskDefaults.DefaultVolatilityRange,
-            RiskParameters.RiskParameterType.ValueAtRisk => RiskDefaults.DefaultValueAtRiskRange,
-            RiskParameters.RiskParameterType.Correlation => RiskDefaults.DefaultBetaRange,
-            RiskParameters.RiskParameterType.Volume => RiskDefaults.DefaultVolumeRange,
-            RiskParameters.RiskParameterType.Sharpe => RiskDefaults.DefaultSharpeRange,
-            RiskParameters.RiskParameterType.Performance => (dt.Subtract(dt.AddYears(-1)).Days * 5 / 7),
-            RiskParameters.RiskParameterType.Beta => RiskDefaults.DefaultBetaRange,
+            RiskParameterType.Volatility => RiskDefaults.DefaultVolatilityRange,
+            RiskParameterType.ValueAtRisk => RiskDefaults.DefaultValueAtRiskRange,
+            RiskParameterType.Correlation => RiskDefaults.DefaultBetaRange,
+            RiskParameterType.Volume => RiskDefaults.DefaultVolumeRange,
+            RiskParameterType.Sharpe => RiskDefaults.DefaultSharpeRange,
+            RiskParameterType.Performance => (dt.Subtract(dt.AddYears(-1)).Days * 5 / 7),
+            RiskParameterType.Beta => RiskDefaults.DefaultBetaRange,
             _ => RiskDefaults.DefaultBetaRange,
         };
     }
 
-    private static double GetDecay(string? value, RiskParameters.RiskParameterType type)
+    private static double GetDecay(string? value, RiskParameterType type)
     {
         if (double.TryParse(value, out double decay))
         {
@@ -81,12 +83,12 @@ public class RiskService : IRiskService
 
         return type switch
         {
-            RiskParameters.RiskParameterType.Beta or RiskParameters.RiskParameterType.Volatility or RiskParameters.RiskParameterType.Correlation => 1,
+            RiskParameterType.Beta or RiskParameterType.Volatility or RiskParameterType.Correlation => 1,
             _ => 1,
         };
     }
 
-    private static double GetConfidence(string? value, RiskParameters.RiskParameterType type)
+    private static double GetConfidence(string? value, RiskParameterType type)
     {
         return double.TryParse(value, out double confidence) ? confidence : RiskDefaults.DefaultValueAtRiskConfidence;
     }
@@ -103,5 +105,20 @@ public class RiskService : IRiskService
             d *= decay;
         }
         return decayedReturns;
+    }
+
+    IRiskParameters IRiskService.CreateRiskParameters(NameValueCollection queryString, RiskParameterType riskParameterType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public double GetValueAtRisk(SortedDictionary<DateTime, double> returns, IRiskParameters riskParameters)
+    {
+        throw new NotImplementedException();
+    }
+
+    public double GetVolatility(SortedDictionary<DateTime, double> returns, IRiskParameters riskParameters)
+    {
+        throw new NotImplementedException();
     }
 }

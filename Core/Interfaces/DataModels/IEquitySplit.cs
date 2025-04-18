@@ -1,4 +1,4 @@
-﻿namespace DataModels.Interfaces
+﻿namespace Core.Interfaces.DataModels
 {
     public interface IEquitySplit // NOTE: is this applicable to non-equities, i.e., ISplit?
     {

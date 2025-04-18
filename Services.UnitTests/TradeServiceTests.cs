@@ -1,6 +1,6 @@
-﻿using DataModels.PositionData;
+﻿using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
 using Moq;
-using Services.Position;
 
 namespace Services.UnitTests;
 
@@ -11,11 +11,28 @@ public class TradeServiceTests
     {
         // Arrange
         var mockTradeService = new Mock<ITradeService>();
+        var mockSecurityService = new Mock<ISecurityService>();
+
+        // Mock the behavior of ISecurityService
+        mockSecurityService
+            .Setup(service => service.GetSecurity(It.IsAny<int>()))
+            .Returns(new Mock<ISecurity>().Object);
+
         var setup = mockTradeService.Setup(service => service.GetTradesAsync());
-        setup.ReturnsAsync(new List<Trade>
+        setup.ReturnsAsync(new List<ITrade>
             {
-                    new Trade { TradeId = 1, FundId = 1, SecurityId = 1, TradeDate = DateTime.Now, Quantity = 100, Price = 10, CreateDateTime = DateTime.Now },
-                    new Trade { TradeId = 2, FundId = 1, SecurityId = 2, TradeDate = DateTime.Now, Quantity = 200, Price = 20, CreateDateTime = DateTime.Now }
+                new UnifiedDataModels.Models.PositionData.Trade(
+                    new DataModels.PositionData.Trade
+                    {
+                        TradeId = 1,
+                        FundId = 1,
+                        SecurityId = 1,
+                        TradeDate = DateTime.Now,
+                        Quantity = 100,
+                        Price = 10,
+                        CreateDateTime = DateTime.Now
+                    },
+                    mockSecurityService.Object) // Inject the mocked ISecurityService
             });
 
         var tradeService = mockTradeService.Object;

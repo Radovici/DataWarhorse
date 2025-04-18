@@ -1,5 +1,6 @@
-﻿using DataModels.EntityFramework.MarketData.Contexts;
-using DataModels.Interfaces;
+﻿using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
+using DataModels.EntityFramework.MarketData.Contexts;
 
 namespace Services.MarketData
 {

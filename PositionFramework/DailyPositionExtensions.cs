@@ -1,7 +1,7 @@
 ﻿using CommonFunctions;
+using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
 using DataLayer.Positions;
-using DataModels.Interfaces;
-using Services.Security;
 
 namespace PositionFramework
 {
@@ -28,7 +28,7 @@ namespace PositionFramework
             //{
             //    return 0; // HACK: zero out starting CFDs (not calculated correctly)
             //}
-            double tradeCost = trades != null && trades.Any() ? trades.Sum(lmb => lmb.Cost) : 0;
+            double tradeCost = trades != null && trades.Any() ? trades.Sum(lmb => lmb.Quantity * lmb.Price) : 0; // NOTE: maybe should be Cost instead of MarketValue
             return dailyPosition.GetEndMarketValue(securityService) - dailyPosition.GetStartMarketValue(securityService) - tradeCost;
         }
 
@@ -49,7 +49,7 @@ namespace PositionFramework
             {
                 if (trades != null && trades.Any())
                 {
-                    startMarketValue = trades.Sum(lmb => lmb.MarketValue);
+                    startMarketValue = trades.Sum(lmb => lmb.Quantity * lmb.Price); // NOTE: maybe should be MarketValue instead of quantity * price
                 }
             }
             return startMarketValue;

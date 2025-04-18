@@ -1,4 +1,4 @@
-﻿namespace DataModels.Interfaces
+﻿namespace Core.Interfaces.DataModels
 {
     public interface IUser
     {

@@ -1,5 +1,5 @@
-﻿using DataModels.Interfaces;
-using Services.Position;
+﻿using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
 
 namespace Tester
 {

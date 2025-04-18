@@ -1,6 +1,6 @@
-﻿using DataModels.EntityFramework.SecurityMaster.Contexts;
-using DataModels.Interfaces;
-using Services.MarketData;
+﻿using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
+using DataModels.EntityFramework.SecurityMaster.Contexts;
 
 namespace Services.Security
 {

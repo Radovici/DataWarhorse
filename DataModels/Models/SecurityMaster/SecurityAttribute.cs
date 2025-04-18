@@ -1,4 +1,4 @@
-﻿using DataModels.Interfaces;
+﻿using Core.Interfaces.DataModels;
 
 namespace DataModels.SecurityMaster;
 

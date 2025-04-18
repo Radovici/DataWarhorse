@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DataModels.EntityFramework\DataModels.EntityFramework.csproj" />
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
+    <ProjectReference Include="..\UnifiedDataModels\UnifiedDataModels.csproj" />
   </ItemGroup>
 
 </Project>

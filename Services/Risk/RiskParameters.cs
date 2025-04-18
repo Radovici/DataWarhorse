@@ -1,19 +1,10 @@
-﻿using DataModels.Interfaces;
+﻿using Core.Enums;
+using Core.Interfaces.DataModels;
 
 namespace Services.Risk
 {
-    public class RiskParameters
+    public class RiskParameters : IRiskParameters
     {
-        public enum RiskParameterType
-        {
-            Beta = 0, Volatility = 1, ValueAtRisk = 2, Correlation = 3, Volume = 4, Sharpe = 5, Performance = 6
-        }
-
-        public enum RiskParameterPeriodType
-        {
-            Daily = 0, Weekly = 1
-        }
-
         public RiskParameters(ISecurity security, DateTime date, int range, double decay, double confidence, string type, RiskParameterPeriodType period)
         {
             Security = security;

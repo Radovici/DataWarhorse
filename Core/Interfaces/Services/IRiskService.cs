@@ -1,11 +1,13 @@
-﻿using System.Collections.Specialized;
+﻿using Core.Enums;
+using Core.Interfaces.DataModels;
+using System.Collections.Specialized;
 
-namespace Services.Risk
+namespace Core.Interfaces.Services
 {
     public interface IRiskService
     {
-        RiskParameters CreateRiskParameters(NameValueCollection queryString, RiskParameters.RiskParameterType riskParameterType = RiskParameters.RiskParameterType.Beta);
-        double GetValueAtRisk(SortedDictionary<DateTime, double> returns, RiskParameters riskParameters);
-        double GetVolatility(SortedDictionary<DateTime, double> returns, RiskParameters riskParameters);
+        IRiskParameters CreateRiskParameters(NameValueCollection queryString, RiskParameterType riskParameterType = RiskParameterType.Beta);
+        double GetValueAtRisk(SortedDictionary<DateTime, double> returns, IRiskParameters riskParameters);
+        double GetVolatility(SortedDictionary<DateTime, double> returns, IRiskParameters riskParameters);
     }
 }

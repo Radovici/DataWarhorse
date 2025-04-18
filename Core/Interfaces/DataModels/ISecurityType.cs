@@ -1,6 +1,6 @@
 ﻿namespace Core.Interfaces.DataModels
 {
-    public interface ICurrency : INameable
+    public interface ISecurityType
     {
     }
 }
