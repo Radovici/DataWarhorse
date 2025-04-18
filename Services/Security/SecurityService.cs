@@ -29,6 +29,11 @@ namespace Services.Security
             return _securityMaster.Securities.FirstOrDefault(s => s.Symbol == symbol);
         }
 
+        public ISecurity? GetSecurity(int securityId)
+        {
+            return _securityMaster.Securities.SingleOrDefault(s => s.Id == securityId); // TODO: use dictionary
+        }
+
         public double GetMarketValue(ISecurity security, DateTime date, double quantity)
         {
             var price = _marketDataService.GetPrice(security, date);

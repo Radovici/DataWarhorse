@@ -1,6 +1,4 @@
-﻿using DataModels.Interfaces;
-
-namespace Services.MarketData
+﻿namespace Core.Interfaces.Services
 {
     public interface IMarketDataService
     {

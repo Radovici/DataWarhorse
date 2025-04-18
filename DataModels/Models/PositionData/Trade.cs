@@ -1,8 +1,6 @@
-﻿using DataModels.Interfaces;
+﻿namespace DataModels.PositionData;
 
-namespace DataModels.PositionData;
-
-public partial class Trade : ITrade
+public partial class Trade
 {
     public int TradeId { get; set; }
 
@@ -20,20 +18,8 @@ public partial class Trade : ITrade
 
     public virtual Fund Fund { get; set; } = null!;
 
-    public ISecurity Security => throw new NotImplementedException();
+    // NOTE: Trade should have commission and currency (trade currency, not always the security's currency, i.e., multi-currency swaps)
+    public double Commission { get; set; }
 
-    public double MarketValue => throw new NotImplementedException();
-
-    public double DeltaExposure => throw new NotImplementedException();
-
-    public double Cost => throw new NotImplementedException();
-
-    public double Commission => throw new NotImplementedException();
-
-    IFund ITrade.Fund => throw new NotImplementedException();
-
-    public double GetOpenDeltaExposure(bool isLong)
-    {
-        throw new NotImplementedException();
-    }
+    public int CurrencyId { get; set; }
 }
