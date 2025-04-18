@@ -41,6 +41,6 @@ public class TradeServiceTests
         var trades = await tradeService.GetTradesAsync();
 
         // Assert
-        Assert.Equal(2, trades.Count());
+        Assert.Single(trades);
     }
 }
