@@ -9,15 +9,18 @@ using Microsoft.Extensions.Hosting;
 using Services.MarketData;
 using Services.Position;
 using Services.Security;
+using Xunit.Abstractions;
 
 namespace Services.IntegrationTests;
 
 public class TradeServiceTests
 {
     private readonly IHost _host;
+    private readonly ITestOutputHelper _output;
 
-    public TradeServiceTests()
+    public TradeServiceTests(ITestOutputHelper output)
     {
+        _output = output;
         _host = CreateHostBuilder().Build();
     }
 
@@ -25,17 +28,15 @@ public class TradeServiceTests
         Host.CreateDefaultBuilder()
             .ConfigureAppConfiguration((context, config) =>
             {
-                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                config.AddJsonFile("appsettings.development.json", optional: false, reloadOnChange: true);
             })
             .ConfigureServices((context, services) =>
             {
                 // Register EF Core DbContexts
-                services.AddDbContext<SecurityMasterContext>(options =>
-                    options.UseSqlServer(context.Configuration.GetConnectionString("SecurityMasterDatabase")));
-                services.AddDbContext<MarketDataContext>(options =>
-                    options.UseSqlServer(context.Configuration.GetConnectionString("MarketDataDatabase")));
-                services.AddDbContext<PositionDataContext>(options =>
-                    options.UseSqlServer(context.Configuration.GetConnectionString("PositionDataDatabase")));
+                string connectionString = context.Configuration.GetConnectionString("DataWarhorse")!;
+                services.AddDbContext<SecurityMasterContext>(options => options.UseSqlServer(connectionString));
+                services.AddDbContext<MarketDataContext>(options => options.UseSqlServer(connectionString));
+                services.AddDbContext<PositionDataContext>(options => options.UseSqlServer(connectionString));
 
                 // Services
                 services.AddScoped<ISecurityService, SecurityService>();
@@ -55,7 +56,7 @@ public class TradeServiceTests
         // Assert
         Assert.NotNull(trades);
         Assert.True(trades.Any(), "No trades were returned.");
-        Console.WriteLine($"Number of trades: {trades.Count()}");
+        _output.WriteLine($"Number of trades: {trades.Count()}");
     }
 
     [Fact]
@@ -80,6 +81,6 @@ public class TradeServiceTests
         // Assert
         Assert.NotNull(spxSecurityPrices);
         Assert.True(spxSecurityPrices.Any(), "No SPX security prices were returned.");
-        Console.WriteLine($"SPX Security Prices Count: {spxSecurityPrices.Count}");
+        _output.WriteLine($"SPX Security Prices Count: {spxSecurityPrices.Count}");
     }
 }
