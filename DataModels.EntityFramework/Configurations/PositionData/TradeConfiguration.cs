@@ -14,6 +14,10 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
             entity.Property(e => e.TradeDate).HasColumnType("smalldatetime");
 
+            // NOTE: ignore these for now; we probably need them but they aren't mapped
+            entity.Ignore(lmb => lmb.CurrencyId);
+            entity.Ignore(lmb => lmb.Commission);
+
             entity.HasOne(d => d.Fund).WithMany(p => p.Trades)
                 .HasForeignKey(d => d.FundId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
