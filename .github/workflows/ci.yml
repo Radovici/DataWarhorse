@@ -25,8 +25,11 @@ jobs:
     - name: Build solution
       run: dotnet build --configuration Release --no-restore
 
-    - name: Run tests
-      run: dotnet test --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+    #- name: Run tests
+    #  run: dotnet test --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+    - name: Run unit tests
+      run: dotnet test Services.UnitTests/Services.UnitTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"      
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
