@@ -1,6 +1,8 @@
-﻿namespace Services.Position
+﻿using Core.Interfaces.Services;
+
+namespace Services.Position
 {
-    public class PositionService() // PositionDataContext positionDataContext
+    public class PositionService : IPositionService // PositionDataContext positionDataContext
     {
     }
 }

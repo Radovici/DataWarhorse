@@ -12,10 +12,5 @@ namespace Services.Position
             return (await positionDataContext.Trades.ToListAsync())
                 .Select(lmb => new UnifiedDataModels.Models.PositionData.Trade(lmb, securityService));
         }
-
-        Task<IEnumerable<ITrade>> ITradeService.GetTradesAsync()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
