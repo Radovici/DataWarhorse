@@ -2,8 +2,11 @@
 using DataModels.EntityFramework.MarketData.Contexts;
 using DataModels.EntityFramework.PositionInformation.Contexts;
 using DataModels.EntityFramework.SecurityMaster.Contexts;
+using DataModels.Metadata.Contexts;
+using DataModels.UserData.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.MarketData;
 using Services.Position;
 using Services.Security;
 
@@ -39,10 +42,15 @@ class Program
                 // Register EF Core DbContexts
                 services.AddDbContext<SecurityMasterContext>();
                 services.AddDbContext<MarketDataContext>();
-                services.AddScoped<ISecurityService, SecurityService>();
-
                 services.AddDbContext<PositionDataContext>();
+                services.AddDbContext<UserDataContext>();
+                services.AddDbContext<MetadataContext>();
+
+                // Services
+                services.AddScoped<ISecurityService, SecurityService>();
                 services.AddScoped<ITradeService, TradeService>();
+                services.AddScoped<IPositionService, PositionService>();
+                services.AddScoped<IMarketDataService, MarketDataService>();
 
                 // Register Application Services
                 services.AddTransient<SecurityTest>(); // Main application logic
