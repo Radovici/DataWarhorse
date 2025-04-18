@@ -1,6 +1,6 @@
 ﻿namespace Core.Interfaces.Services
 {
-    internal interface IPositionService
+    public interface IPositionService
     {
     }
 }
