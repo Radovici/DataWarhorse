@@ -1,29 +1,85 @@
-﻿namespace Services.IntegrationTests;
+﻿using Core.Interfaces.Services;
+using DataModels.EntityFramework.MarketData.Contexts;
+using DataModels.EntityFramework.PositionInformation.Contexts;
+using DataModels.EntityFramework.SecurityMaster.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Services.MarketData;
+using Services.Position;
+using Services.Security;
 
-//public class TradeServiceTests
-//{
-//    [Fact]
-//    public async Task GetTradesAsync_ReturnsTrades()
-//    {
-//        // Arrange
-//        var options = new DbContextOptionsBuilder<PositionDataContext>()
-//            .UseInMemoryDatabase(databaseName: "TestDatabase")
-//            .Options;
+namespace Services.IntegrationTests;
 
-//        using var context = new PositionDataContext(options);
-//        context.Trades.AddRange(new List<Trade>
-//            {
-//                new Trade { TradeId = 1, FundId = 1, SecurityId = 1, TradeDate = DateTime.Now, Quantity = 100, Price = 10, CreateDateTime = DateTime.Now },
-//                new Trade { TradeId = 2, FundId = 1, SecurityId = 2, TradeDate = DateTime.Now, Quantity = 200, Price = 20, CreateDateTime = DateTime.Now }
-//            });
-//        await context.SaveChangesAsync();
+public class TradeServiceTests
+{
+    private readonly IHost _host;
 
-//        var tradeService = new TradeService(context);
+    public TradeServiceTests()
+    {
+        _host = CreateHostBuilder().Build();
+    }
 
-//        // Act
-//        var trades = await tradeService.GetTradesAsync();
+    private static IHostBuilder CreateHostBuilder() =>
+        Host.CreateDefaultBuilder()
+            .ConfigureAppConfiguration((context, config) =>
+            {
+                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            })
+            .ConfigureServices((context, services) =>
+            {
+                // Register EF Core DbContexts
+                services.AddDbContext<SecurityMasterContext>(options =>
+                    options.UseSqlServer(context.Configuration.GetConnectionString("SecurityMasterDatabase")));
+                services.AddDbContext<MarketDataContext>(options =>
+                    options.UseSqlServer(context.Configuration.GetConnectionString("MarketDataDatabase")));
+                services.AddDbContext<PositionDataContext>(options =>
+                    options.UseSqlServer(context.Configuration.GetConnectionString("PositionDataDatabase")));
 
-//        // Assert
-//        Assert.Equal(2, trades.Count());
-//    }
-//}
+                // Services
+                services.AddScoped<ISecurityService, SecurityService>();
+                services.AddScoped<ITradeService, TradeService>();
+                services.AddScoped<IMarketDataService, MarketDataService>();
+            });
+
+    [Fact]
+    public async Task GetTradesAsync_ReturnsTrades()
+    {
+        using var scope = _host.Services.CreateScope();
+        var tradeService = scope.ServiceProvider.GetRequiredService<ITradeService>();
+
+        // Act
+        var trades = await tradeService.GetTradesAsync();
+
+        // Assert
+        Assert.NotNull(trades);
+        Assert.True(trades.Any(), "No trades were returned.");
+        Console.WriteLine($"Number of trades: {trades.Count()}");
+    }
+
+    [Fact]
+    public async Task GetSPXSecurityPrices_ReturnsPrices()
+    {
+        using var scope = _host.Services.CreateScope();
+        var securityMasterContext = scope.ServiceProvider.GetRequiredService<SecurityMasterContext>();
+        var marketDataContext = scope.ServiceProvider.GetRequiredService<MarketDataContext>();
+
+        // Arrange
+        var spxSecurities = await securityMasterContext.Securities
+            .Where(s => s.Symbol == "SPX" && s.Exchange.Name.ToLower() == "index")
+            .ToListAsync();
+
+        int[] spxSecurityIds = spxSecurities.Select(s => s.Id).ToArray();
+
+        // Act
+        var spxSecurityPrices = await marketDataContext.EquityPrices
+            .Where(p => spxSecurityIds.Contains(p.SecurityId))
+            .ToListAsync();
+
+        // Assert
+        Assert.NotNull(spxSecurityPrices);
+        Assert.True(spxSecurityPrices.Any(), "No SPX security prices were returned.");
+        Console.WriteLine($"SPX Security Prices Count: {spxSecurityPrices.Count}");
+    }
+}

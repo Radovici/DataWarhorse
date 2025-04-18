@@ -43,6 +43,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnifiedDataModels", "Unifie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{BC8C46BA-0CD9-4198-9F7E-0F03627DFA34}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppSettings", "AppSettings", "{B457537A-0C56-407A-8C74-02BE6FD897A5}"
+	ProjectSection(SolutionItems) = preProject
+		Tester\appsettings.development.json = Tester\appsettings.development.json
+		Tester\appsettings.json = Tester\appsettings.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,5 +110,6 @@ Global
 		{CFED349E-4437-42CD-8088-1C2E1F9D8D5A} = {51E4DDED-D2DF-42B6-B405-9910A426FEE8}
 		{858FDCFE-C2CE-4FCF-AD0D-004B4933D361} = {21A58608-7661-4161-9BF3-E08C01DAF32D}
 		{BC8C46BA-0CD9-4198-9F7E-0F03627DFA34} = {21A58608-7661-4161-9BF3-E08C01DAF32D}
+		{B457537A-0C56-407A-8C74-02BE6FD897A5} = {0100AC3B-E74D-4844-BB0E-D151DC5BAA75}
 	EndGlobalSection
 EndGlobal
