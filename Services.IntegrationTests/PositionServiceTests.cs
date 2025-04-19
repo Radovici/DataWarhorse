@@ -13,12 +13,12 @@ using Xunit.Abstractions;
 
 namespace Services.IntegrationTests;
 
-public class TradeServiceTests
+public class PositionServiceTests
 {
     private readonly IHost _host;
     private readonly ITestOutputHelper _output;
 
-    public TradeServiceTests(ITestOutputHelper output)
+    public PositionServiceTests(ITestOutputHelper output)
     {
         _output = output;
         _host = CreateHostBuilder().Build();
@@ -42,45 +42,22 @@ public class TradeServiceTests
                 services.AddScoped<ISecurityService, SecurityService>();
                 services.AddScoped<ITradeService, TradeService>();
                 services.AddScoped<IMarketDataService, MarketDataService>();
+                services.AddScoped<IPositionService, PositionService>();
             });
 
     [Fact]
-    public void GetTrades_ReturnsTrades()
+    public void TestIQueryableTradeService()
     {
         using var scope = _host.Services.CreateScope();
         var tradeService = scope.ServiceProvider.GetRequiredService<ITradeService>();
 
         // Act
-        var trades = tradeService.GetTrades();
+        var trades = tradeService.GetTrades()
+            .Take(1);
 
         // Assert
         Assert.NotNull(trades);
-        Assert.True(trades.Any(), "No trades were returned.");
+        Assert.True(trades.Count() == 1, "Take(1) didn't work.");
         _output.WriteLine($"Number of trades: {trades.Count()}");
-    }
-
-    [Fact]
-    public async Task GetSPXSecurityPrices_ReturnsPrices()
-    {
-        using var scope = _host.Services.CreateScope();
-        var securityMasterContext = scope.ServiceProvider.GetRequiredService<SecurityMasterContext>();
-        var marketDataContext = scope.ServiceProvider.GetRequiredService<MarketDataContext>();
-
-        // Arrange
-        var spxSecurities = await securityMasterContext.Securities
-            .Where(s => s.Symbol == "SPX" && s.Exchange.Name.ToLower() == "index")
-            .ToListAsync();
-
-        int[] spxSecurityIds = spxSecurities.Select(s => s.Id).ToArray();
-
-        // Act
-        var spxSecurityPrices = await marketDataContext.EquityPrices
-            .Where(p => spxSecurityIds.Contains(p.SecurityId))
-            .ToListAsync();
-
-        // Assert
-        Assert.NotNull(spxSecurityPrices);
-        Assert.True(spxSecurityPrices.Any(), "No SPX security prices were returned.");
-        _output.WriteLine($"SPX Security Prices Count: {spxSecurityPrices.Count}");
     }
 }

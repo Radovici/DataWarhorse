@@ -4,6 +4,6 @@ namespace Core.Interfaces.Services
 {
     public interface ITradeService
     {
-        Task<IEnumerable<ITrade>> GetTradesAsync();
+        IQueryable<ITrade> GetTrades();
     }
 }
