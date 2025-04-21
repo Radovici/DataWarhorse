@@ -24,7 +24,7 @@ class Program
         try
         {
             var tradeTest = services.GetRequiredService<TradeTest>();
-            var trades = await tradeTest.GetTradesAsync();
+            var trades = tradeTest.GetTrades();
 
             var test = services.GetRequiredService<SecurityTest>(); // Resolve App from DI
             await test.RunAsync();
