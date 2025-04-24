@@ -52,8 +52,7 @@ public class PositionServiceTests
         var tradeService = scope.ServiceProvider.GetRequiredService<ITradeService>();
 
         // Act
-        var trades = tradeService.GetTrades()
-            .Take(1);
+        var trades = tradeService.QueryableTrades.Take(1);
 
         // Assert
         Assert.NotNull(trades);

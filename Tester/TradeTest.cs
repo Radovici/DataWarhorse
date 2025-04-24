@@ -5,9 +5,10 @@ namespace Tester
 {
     public class TradeTest(ITradeService tradeService)
     {
-        public async Task<IEnumerable<ITrade>> GetTradesAsync()
+        public IEnumerable<ITrade> GetTrades()
         {
-            var trades = await tradeService.GetTradesAsync();
+            var queryableTrades = tradeService.QueryableTrades.Take(10);
+            var trades = tradeService.GetUnifiedTrades(queryableTrades);
             Console.WriteLine($"Number of trades = {trades.Count()}.");
             return trades;
         }

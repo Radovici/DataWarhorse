@@ -5,9 +5,10 @@ namespace Tester
 {
     public class PositionFrameworkTest(ITradeService tradeService)
     {
-        public async Task<double> BuildPortfolioAndReturnCalculatedPnl()
+        public double BuildPortfolioAndReturnCalculatedPnl()
         {
-            var trades = await tradeService.GetTradesAsync();
+            var queryableTrades = tradeService.QueryableTrades.Take(10);
+            var trades = tradeService.GetUnifiedTrades(queryableTrades);
             Console.WriteLine($"Number of trades = {trades.Count()}.");
             Portfolio portfolio = new Portfolio(trades);
             return portfolio.Pnl;

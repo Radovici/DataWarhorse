@@ -51,10 +51,14 @@ public class TradeServiceTests
         var tradeService = scope.ServiceProvider.GetRequiredService<ITradeService>();
 
         // Act
-        var trades = tradeService.GetTrades();
+        var trades = tradeService.QueryableTrades;
+        DateTime maxTradeDate = trades
+            .Select(lmb => lmb.TradeDate)
+            .Max();
+        var maxTradeDateTrades = trades.Where(lmb => lmb.TradeDate == maxTradeDate);
+        _output.WriteLine($"Number of trades={trades.Count()} with type (of maxTradeDateTrades)={maxTradeDateTrades.GetType()}.");
 
         // Assert
-        Assert.NotNull(trades);
         Assert.True(trades.Any(), "No trades were returned.");
         _output.WriteLine($"Number of trades: {trades.Count()}");
     }

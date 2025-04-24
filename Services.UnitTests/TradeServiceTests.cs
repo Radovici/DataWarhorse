@@ -7,7 +7,7 @@ namespace Services.UnitTests;
 public class TradeServiceTests
 {
     [Fact]
-    public async Task GetTradesAsync_ReturnsTrades()
+    public void GetTradesAsync_ReturnsTrades()
     {
         // Arrange
         var mockTradeService = new Mock<ITradeService>();
@@ -18,27 +18,26 @@ public class TradeServiceTests
             .Setup(service => service.GetSecurity(It.IsAny<int>()))
             .Returns(new Mock<ISecurity>().Object);
 
-        var setup = mockTradeService.Setup(service => service.GetTradesAsync());
-        setup.ReturnsAsync(new List<ITrade>
+        mockTradeService
+            .Setup(service => service.QueryableTrades)
+            .Returns(new List<IQueryableTrade>
             {
-                new UnifiedDataModels.Models.PositionData.Trade(
-                    new DataModels.PositionData.Trade
-                    {
-                        TradeId = 1,
-                        FundId = 1,
-                        SecurityId = 1,
-                        TradeDate = DateTime.Now,
-                        Quantity = 100,
-                        Price = 10,
-                        CreateDateTime = DateTime.Now
-                    },
-                    mockSecurityService.Object) // Inject the mocked ISecurityService
-            });
+                new DataModels.PositionData.Trade
+                {
+                    TradeId = 1,
+                    FundId = 1,
+                    SecurityId = 1,
+                    TradeDate = DateTime.Now,
+                    Quantity = 100,
+                    Price = 10,
+                    CreateDateTime = DateTime.Now
+                }
+            }.AsQueryable());
 
         var tradeService = mockTradeService.Object;
 
         // Act
-        var trades = await tradeService.GetTradesAsync();
+        var trades = tradeService.QueryableTrades;
 
         // Assert
         Assert.Single(trades);

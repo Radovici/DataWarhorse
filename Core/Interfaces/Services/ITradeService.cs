@@ -4,6 +4,8 @@ namespace Core.Interfaces.Services
 {
     public interface ITradeService
     {
-        IQueryable<ITrade> GetTrades();
+        IQueryable<IQueryableTrade> QueryableTrades { get; }
+
+        IEnumerable<ITrade> GetUnifiedTrades(IQueryable<IQueryableTrade> queryableTrades);
     }
 }
