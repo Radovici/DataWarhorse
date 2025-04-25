@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataModels.EntityFramework\DataModels.EntityFramework.csproj" />
+    <ProjectReference Include="..\PositionFramework\PositionFramework.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 

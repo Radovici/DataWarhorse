@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PositionFramework;
 using Services.MarketData;
 using Services.Position;
 using Services.Security;
@@ -46,7 +47,7 @@ public class PositionServiceTests
             });
 
     [Fact]
-    public void TestIQueryableTradeService()
+    public void TestIQueryableTradeServiceTest()
     {
         using var scope = _host.Services.CreateScope();
         var tradeService = scope.ServiceProvider.GetRequiredService<ITradeService>();
@@ -58,5 +59,22 @@ public class PositionServiceTests
         Assert.NotNull(trades);
         Assert.True(trades.Count() == 1, "Take(1) didn't work.");
         _output.WriteLine($"Number of trades: {trades.Count()}");
+    }
+
+    [Fact]
+    public void PortfolioPnlTest()
+    {
+        using var scope = _host.Services.CreateScope();
+        var tradeService = scope.ServiceProvider.GetRequiredService<ITradeService>();
+
+        // Act
+        var queryableTrades = tradeService.QueryableTrades.Take(10);
+        var trades = tradeService.GetUnifiedTrades(queryableTrades);
+        _output.WriteLine($"Number of trades = {trades.Count()}.");
+        Portfolio portfolio = new Portfolio(trades);
+
+        // Assert
+        Assert.True(portfolio.Pnl != 0, "There should be pnl.");
+        _output.WriteLine($"Portfolio pnl: {portfolio.Pnl}");
     }
 }
