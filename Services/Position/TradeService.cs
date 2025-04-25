@@ -1,6 +1,7 @@
 ﻿using Core.Interfaces.DataModels;
 using Core.Interfaces.Services;
 using DataModels.EntityFramework.PositionInformation.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services.Position
 {
@@ -11,7 +12,14 @@ namespace Services.Position
             throw new NotImplementedException();
         }
 
-        public IQueryable<IQueryableTrade> QueryableTrades { get { return positionDataContext.Trades; } } // TODO: should be ITrade, need to abstract this stuff to make it usable for others
+        public IQueryable<IQueryableTrade> QueryableTrades
+        {
+            get
+            {
+                return positionDataContext.Trades
+                    .Include(lmb => lmb.Fund);
+            }
+        } // TODO: should be ITrade, need to abstract this stuff to make it usable for others
 
         public IEnumerable<ITrade> GetUnifiedTrades(IQueryable<IQueryableTrade> queryableTrades)
         {
