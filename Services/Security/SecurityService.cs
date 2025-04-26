@@ -29,9 +29,11 @@ namespace Services.Security
             return _securityMaster.Securities.FirstOrDefault(s => s.Symbol == symbol);
         }
 
-        public ISecurity? GetSecurity(int securityId)
+        public UnifiedDataModels.Models.SecurityMaster.Security? GetSecurity(int securityId) // TODO: separate IQueryableSecurity from ISecurity (unified security)
         {
-            return _securityMaster.Securities.SingleOrDefault(s => s.Id == securityId); // TODO: use dictionary
+            ISecurity? security = _securityMaster.Securities.SingleOrDefault(s => s.Id == securityId); // TODO: use dictionary
+            UnifiedDataModels.Models.SecurityMaster.Security? unifiedSecurity = new UnifiedDataModels.Models.SecurityMaster.Security(security!, _marketDataService);
+            return unifiedSecurity;
         }
 
         public double GetMarketValue(ISecurity security, DateTime date, double quantity)
@@ -41,6 +43,11 @@ namespace Services.Security
                 throw new InvalidOperationException($"Price not found for {security.Symbol} on {date:yyyy-MM-dd}");
 
             return price.Value * quantity;
+        }
+
+        ISecurity? ISecurityService.GetSecurity(int securityId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
