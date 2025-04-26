@@ -1,6 +1,6 @@
 # DataWarhorse
 
-DataWarhorse combines next-generation Risk Management, Artificial Intelligence, and Alternative Data to construct and optimize portfolios. It’s a modular, datastore-agnostic platform designed for clarity, extensibility, and correctness—revived and open-sourced after years of battle-tested development.
+DataWarhorse combines next-generation Risk Management and Artificial Intelligence to construct and optimize portfolios. It’s a modular, datastore-agnostic platform designed for clarity, extensibility, and correctness—revived and open-sourced after years of battle-tested development.
 
 ![CI](https://github.com/Radovici/DataWarhorse/actions/workflows/ci.yml/badge.svg)
 
