@@ -24,7 +24,7 @@ namespace PositionFramework
             foreach (var tradesByDailyPositionGrouping in trades.GroupBy(lmb => new { lmb.Fund, lmb.Security })) // NOTE: GroupBy DailyPositionGrouping (finest granularity)
             {
                 Console.Write(string.Format("Creating DailyPositions for Fund={0}, Security={1}.", tradesByDailyPositionGrouping.Key.Fund.Name, tradesByDailyPositionGrouping.Key.Security.Name));
-                DateTime maxSecurityDate = dates.Max(); // tradesByDailyPositionGrouping.Key.Security.MaxDate;
+                DateTime maxSecurityDate = tradesByDailyPositionGrouping.Key.Security.MaxDate; // dates.Max();
                 SortedDictionary<DateTime, IEnumerable<ITrade>> tradesByDate =
                     new SortedDictionary<DateTime, IEnumerable<ITrade>>(
                         tradesByDailyPositionGrouping.GroupBy(lmb => lmb.TradeDate).ToDictionary(lmb => lmb.Key,
