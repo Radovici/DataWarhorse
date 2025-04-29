@@ -4,14 +4,14 @@ namespace CommonFunctions
 {
     public static class DateTimeExtensions
     {
-        public static IEnumerable<DateTime> To(this DateTime from, DateTime to, bool includeNonBusinessDays)
+        public static IEnumerable<DateOnly> To(this DateOnly from, DateOnly to, bool includeNonBusinessDays)
         {
             if (from > to)
                 throw new ArgumentException(string.Format("Invalid date range: from date ({0}) is greater than the to date {1}.",
                     from.ToShortDateString(), to.ToShortDateString()));
-            Func<DateTime, DateTime> func = lmb => includeNonBusinessDays ? lmb.AddDays(1) : lmb.AddBusinessDays(1);
-            List<DateTime> dates = new List<DateTime>();
-            DateTime dt = from;
+            Func<DateOnly, DateOnly> func = lmb => includeNonBusinessDays ? lmb.AddDays(1) : lmb.AddBusinessDays(1);
+            List<DateOnly> dates = new List<DateOnly>();
+            DateOnly dt = from;
             do
             {
                 //yield return dt;
@@ -21,17 +21,17 @@ namespace CommonFunctions
             return dates;
         }
 
-        public static bool IsWeekend(this DateTime dt)
+        public static bool IsWeekend(this DateOnly dt)
         {
             return (dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday);
         }
 
-        public static bool IsWeekday(this DateTime dt)
+        public static bool IsWeekday(this DateOnly dt)
         {
             return !dt.IsWeekend();
         }
 
-        public static DateTime ToWeek(this DateTime dt)
+        public static DateOnly ToWeek(this DateOnly dt)
         {
             while (dt.DayOfWeek != DayOfWeek.Monday)
             {
@@ -40,7 +40,7 @@ namespace CommonFunctions
             return dt;
         }
 
-        public static DateTime ToClosestBusinessDate(this DateTime dt, bool forward = false)
+        public static DateOnly ToClosestBusinessDate(this DateOnly dt, bool forward = false)
         {
             if (dt.IsWeekend())
             {
@@ -49,10 +49,10 @@ namespace CommonFunctions
             return dt;
         }
 
-        public static DateTime ToNextBusinessDate(this DateTime dt)
+        public static DateOnly ToNextBusinessDate(this DateOnly dt)
         {
-            if (dt == DateTime.MaxValue || dt == DateTime.MinValue) throw new ArgumentOutOfRangeException(string.Format("Invalid asymptotic date: {0}.", dt));
-            DateTime nextDate = default(DateTime);
+            if (dt == DateOnly.MaxValue || dt == DateOnly.MinValue) throw new ArgumentOutOfRangeException(string.Format("Invalid asymptotic date: {0}.", dt));
+            DateOnly nextDate = default(DateOnly);
             switch (dt.DayOfWeek)
             {
                 case DayOfWeek.Saturday:
@@ -68,10 +68,10 @@ namespace CommonFunctions
             return nextDate;
         }
 
-        public static DateTime ToPreviousBusinessDate(this DateTime dt)
+        public static DateOnly ToPreviousBusinessDate(this DateOnly dt)
         {
-            if (dt == DateTime.MaxValue || dt == DateTime.MinValue) throw new ArgumentOutOfRangeException(string.Format("Invalid asymptotic date: {0}.", dt));
-            DateTime previousDate = default(DateTime);
+            if (dt == DateOnly.MaxValue || dt == DateOnly.MinValue) throw new ArgumentOutOfRangeException(string.Format("Invalid asymptotic date: {0}.", dt));
+            DateOnly previousDate = default(DateOnly);
             switch (dt.DayOfWeek)
             {
                 case DayOfWeek.Sunday:
@@ -87,9 +87,9 @@ namespace CommonFunctions
             return previousDate;
         }
 
-        public static DateTime AddBusinessDays(this DateTime dt, int days)
+        public static DateOnly AddBusinessDays(this DateOnly dt, int days)
         {
-            if (dt == DateTime.MaxValue || dt == DateTime.MinValue) throw new ArgumentOutOfRangeException(string.Format("Invalid asymptotic date: {0}.", dt));
+            if (dt == DateOnly.MaxValue || dt == DateOnly.MinValue) throw new ArgumentOutOfRangeException(string.Format("Invalid asymptotic date: {0}.", dt));
             while (days != 0)
             {
                 if (days > 0)
@@ -106,9 +106,9 @@ namespace CommonFunctions
             return dt;
         }
 
-        public static DateTime Max(DateTime dt1, DateTime dt2) { return dt1 > dt2 ? dt1 : dt2; }
+        public static DateOnly Max(DateOnly dt1, DateOnly dt2) { return dt1 > dt2 ? dt1 : dt2; }
 
-        public static DateTime Min(DateTime dt1, DateTime dt2) { return dt1 < dt2 ? dt1 : dt2; }
+        public static DateOnly Min(DateOnly dt1, DateOnly dt2) { return dt1 < dt2 ? dt1 : dt2; }
 
         public static string ConvertSecondsToText(int seconds)
         {
