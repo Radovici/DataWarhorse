@@ -22,7 +22,7 @@
         //bool IsEquityOption { get; }
 
         //double Beta { get; }
-        //DateTime MaxDate { get; }
+        DateOnly MaxDate { get; }
         //string Sector { get; }
         //string Industry { get; }
         //string Country { get; }

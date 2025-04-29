@@ -2,7 +2,7 @@
 {
     public interface IDailyPosition : IPosition
     {
-        DateTime Date { get; }
+        DateOnly Date { get; }
         IFund Fund { get; }
         ISecurity Security { get; }
         IEnumerable<ITrade> Trades { get; }

@@ -1,6 +1,6 @@
 ﻿namespace Core.Interfaces.DataModels
 {
-    public interface IQueryableTrade
+    public interface ITradeData
     {
         int TradeId { get; }
         int SecurityId { get; } // TODO: bigint?

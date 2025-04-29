@@ -5,8 +5,8 @@
         // Performance calculations
         double Pnl { get; }
         // Dates
-        DateTime StartDate { get; }
-        DateTime EndDate { get; }
+        DateOnly StartDate { get; }
+        DateOnly EndDate { get; }
         // NOTE: start/end quantity and price? Do we really want the exposures, risk analytics, and assets? At least further interface that.
         // Exposure calculations
         double OpenMarketValue { get; } // NOTE: what's "Open" again (been a few years since revisiting this codebase)?
