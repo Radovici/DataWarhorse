@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces.DataModels;
 using DataLayer.Positions;
+using PositionFramework.Extensions;
 using System.ComponentModel.DataAnnotations;
 
 namespace PositionFramework

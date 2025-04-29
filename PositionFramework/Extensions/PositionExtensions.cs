@@ -1,6 +1,6 @@
 ﻿using Core.Interfaces.DataModels;
 
-namespace PositionFramework
+namespace PositionFramework.Extensions
 {
     public static class PositionExtensions
     {

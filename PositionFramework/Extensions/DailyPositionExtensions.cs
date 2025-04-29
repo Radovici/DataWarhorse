@@ -3,7 +3,7 @@ using Core.Interfaces.DataModels;
 using Core.Interfaces.Services;
 using DataLayer.Positions;
 
-namespace PositionFramework
+namespace PositionFramework.Extensions
 {
     public static class DailyPositionExtensions
     {

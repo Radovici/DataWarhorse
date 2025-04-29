@@ -1,11 +1,12 @@
 ﻿using Core.Interfaces.DataModels;
 using DataLayer.Positions;
+using PositionFramework.Extensions;
 
 namespace PositionFramework
 {
     public class DailyPosition : IDailyPosition
     {
-        private readonly DateTime _date;
+        private readonly DateOnly _date;
         private readonly IEnumerable<ITrade>? _trades;
         private readonly DailyPosition? _previousDailyPosition;
 
@@ -18,7 +19,7 @@ namespace PositionFramework
         /// <summary>
         /// A DailyPosition can be made up of a previous DailyPosition (last business date's DailyPosition) and today's trades.
         /// </summary>
-        public DailyPosition(DateTime dt, IEnumerable<ITrade>? trades, DailyPosition? previousDailyPosition)
+        public DailyPosition(DateOnly dt, IEnumerable<ITrade>? trades, DailyPosition? previousDailyPosition)
         {
             if (trades != null && trades.Any())
             {
@@ -70,7 +71,7 @@ namespace PositionFramework
             get { return _security; }
         }
 
-        public DateTime Date
+        public DateOnly Date
         {
             get { return _date; }
         }
@@ -135,5 +136,7 @@ namespace PositionFramework
         public double StartAum => throw new NotImplementedException();
 
         public double EndAum => throw new NotImplementedException();
+
+        DateTime IDailyPosition.Date => throw new NotImplementedException();
     }
 }
