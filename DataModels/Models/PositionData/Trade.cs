@@ -2,7 +2,7 @@
 
 namespace DataModels.PositionData;
 
-public partial class Trade : IQueryableTrade
+public partial class Trade : ITradeData
 {
     public int TradeId { get; set; }
 
@@ -20,7 +20,7 @@ public partial class Trade : IQueryableTrade
 
     public virtual Fund Fund { get; set; } = null!;
 
-    IFund IQueryableTrade.Fund => this.Fund;
+    IFund ITradeData.Fund => this.Fund;
 
     // NOTE: Trade should have commission and currency (trade currency, not always the security's currency, i.e., multi-currency swaps)
     public double Commission { get; set; }
