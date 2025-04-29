@@ -39,5 +39,7 @@ namespace UnifiedDataModels.Models.SecurityMaster
                 return DateOnly.FromDateTime(DateTime.Today); //_marketDataService
             }
         }
+
+        DateOnly ISecurity.MaxDate => throw new NotImplementedException();
     }
 }

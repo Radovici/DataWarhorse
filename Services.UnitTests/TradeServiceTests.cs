@@ -20,7 +20,7 @@ public class TradeServiceTests
 
         mockTradeService
             .Setup(service => service.QueryableTrades)
-            .Returns(new List<IQueryableTrade>
+            .Returns(new List<ITradeData>
             {
                 new DataModels.PositionData.Trade
                 {

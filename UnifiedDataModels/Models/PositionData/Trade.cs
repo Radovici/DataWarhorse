@@ -5,10 +5,10 @@ namespace UnifiedDataModels.Models.PositionData
 {
     public class Trade : ITrade
     {
-        private IQueryableTrade _trade;
+        private ITradeData _trade;
         private ISecurityService _securityService;
 
-        public Trade(IQueryableTrade trade, ISecurityService securityService)
+        public Trade(ITradeData trade, ISecurityService securityService)
         {
             _trade = trade;
             _securityService = securityService;
