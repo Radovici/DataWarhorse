@@ -12,7 +12,7 @@ namespace Services.Position
             throw new NotImplementedException();
         }
 
-        public IQueryable<IQueryableTrade> QueryableTrades
+        public IQueryable<ITradeData> QueryableTrades
         {
             get
             {
@@ -21,7 +21,7 @@ namespace Services.Position
             }
         } // TODO: should be ITrade, need to abstract this stuff to make it usable for others
 
-        public IEnumerable<ITrade> GetUnifiedTrades(IQueryable<IQueryableTrade> queryableTrades)
+        public IEnumerable<ITrade> GetUnifiedTrades(IQueryable<ITradeData> queryableTrades)
         {
             return queryableTrades.Select(lmb => new UnifiedDataModels.Models.PositionData.Trade(lmb, securityService));
         }
