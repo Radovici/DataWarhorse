@@ -15,7 +15,7 @@ public class RiskService : IRiskService
         _securityService = securityService;
     }
 
-    public RiskParameters CreateRiskParameters(NameValueCollection queryString, RiskParameterType riskParameterType = RiskParameterType.Beta)
+    public IRiskParameters CreateRiskParameters(NameValueCollection queryString, RiskParameterType riskParameterType = RiskParameterType.Beta)
     {
         if (queryString == null)
         {
@@ -25,7 +25,7 @@ public class RiskService : IRiskService
         string symbol = queryString["Index"] ?? queryString["Security"] ?? RiskDefaults.DefaultBetaIndex;
         ISecurity security = _securityService.GetSecurity(symbol) ?? _securityService.Spx;
 
-        DateTime dt = DateTime.TryParse(queryString["Date"], out var parsedDate) ? parsedDate : RiskDefaults.DefaultDate();
+        DateOnly dt = DateOnly.TryParse(queryString["Date"], out var parsedDate) ? parsedDate : RiskDefaults.DefaultDate();
         int range = GetRange(queryString["Range"], riskParameterType, dt);
         double decay = GetDecay(queryString["Decay"], riskParameterType);
         double confidence = GetConfidence(queryString["Confidence"], riskParameterType);
@@ -37,7 +37,7 @@ public class RiskService : IRiskService
         return new RiskParameters(security, dt, range, decay, confidence, type, period);
     }
 
-    public double GetValueAtRisk(SortedDictionary<DateTime, double> returns, RiskParameters riskParameters)
+    public double GetValueAtRisk(SortedDictionary<DateOnly, double> returns, IRiskParameters riskParameters)
     {
         double[] decayedReturns = DecayReturns(returns.Values.ToArray(), riskParameters.Decay);
         return riskParameters.Type switch
@@ -48,19 +48,20 @@ public class RiskService : IRiskService
         };
     }
 
-    public double GetVolatility(SortedDictionary<DateTime, double> returns, RiskParameters riskParameters)
+    public double GetVolatility(SortedDictionary<DateOnly, double> returns, IRiskParameters riskParameters)
     {
         double[] decayedReturns = DecayReturns(returns.Values.ToArray(), riskParameters.Decay);
         return 0; // TODO: Implement standard deviation calculation
     }
 
-    private static int GetRange(string? value, RiskParameterType type, DateTime dt)
+    private static int GetRange(string? value, RiskParameterType type, DateOnly dt)
     {
         if (int.TryParse(value, out int range))
         {
             return range;
         }
 
+        DateTime datetime = dt.ToDateTime(TimeOnly.MinValue);
         return type switch
         {
             RiskParameterType.Volatility => RiskDefaults.DefaultVolatilityRange,
@@ -68,7 +69,7 @@ public class RiskService : IRiskService
             RiskParameterType.Correlation => RiskDefaults.DefaultBetaRange,
             RiskParameterType.Volume => RiskDefaults.DefaultVolumeRange,
             RiskParameterType.Sharpe => RiskDefaults.DefaultSharpeRange,
-            RiskParameterType.Performance => (dt.Subtract(dt.AddYears(-1)).Days * 5 / 7),
+            RiskParameterType.Performance => (datetime.Subtract(datetime.AddYears(-1)).Days * 5 / 7),
             RiskParameterType.Beta => RiskDefaults.DefaultBetaRange,
             _ => RiskDefaults.DefaultBetaRange,
         };
@@ -105,20 +106,5 @@ public class RiskService : IRiskService
             d *= decay;
         }
         return decayedReturns;
-    }
-
-    IRiskParameters IRiskService.CreateRiskParameters(NameValueCollection queryString, RiskParameterType riskParameterType)
-    {
-        throw new NotImplementedException();
-    }
-
-    public double GetValueAtRisk(SortedDictionary<DateTime, double> returns, IRiskParameters riskParameters)
-    {
-        throw new NotImplementedException();
-    }
-
-    public double GetVolatility(SortedDictionary<DateTime, double> returns, IRiskParameters riskParameters)
-    {
-        throw new NotImplementedException();
     }
 }

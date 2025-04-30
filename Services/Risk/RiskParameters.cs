@@ -5,7 +5,7 @@ namespace Services.Risk
 {
     public class RiskParameters : IRiskParameters
     {
-        public RiskParameters(ISecurity security, DateTime date, int range, double decay, double confidence, string type, RiskParameterPeriodType period)
+        public RiskParameters(ISecurity security, DateOnly date, int range, double decay, double confidence, string type, RiskParameterPeriodType period)
         {
             Security = security;
             Date = date;
@@ -17,12 +17,14 @@ namespace Services.Risk
         }
 
         public ISecurity Security { get; }
-        public DateTime Date { get; }
+        public DateOnly Date { get; }
         public int Range { get; }
         public double Decay { get; }
         public double Confidence { get; }
         public string Type { get; }
         public RiskParameterPeriodType Period { get; }
+
+        DateOnly IRiskParameters.Date => throw new NotImplementedException();
 
         public override string ToString()
         {

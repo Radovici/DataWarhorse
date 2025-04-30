@@ -36,7 +36,7 @@ namespace Services.Security
             return unifiedSecurity;
         }
 
-        public double GetMarketValue(ISecurity security, DateTime date, double quantity)
+        public double GetMarketValue(ISecurity security, DateOnly date, double quantity)
         {
             var price = _marketDataService.GetPrice(security, date);
             if (price == null)
