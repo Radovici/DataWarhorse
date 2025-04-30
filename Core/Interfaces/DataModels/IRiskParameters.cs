@@ -5,7 +5,7 @@ namespace Core.Interfaces.DataModels
     public interface IRiskParameters
     {
         ISecurity Security { get; }
-        DateTime Date { get; }
+        DateOnly Date { get; }
         int Range { get; }
         double Decay { get; }
         double Confidence { get; }

@@ -6,7 +6,7 @@
         int SecurityId { get; } // TODO: bigint?
         int FundId { get; }
         IFund Fund { get; }
-        DateTime TradeDate { get; }
+        DateOnly TradeDate { get; }
         double Quantity { get; }
         double Price { get; }
         double Commission { get; }

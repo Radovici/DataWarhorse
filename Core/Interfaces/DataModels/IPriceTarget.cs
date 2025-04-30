@@ -7,7 +7,7 @@
         ISecurity Security { get; }
         string Formula { get; }
         double? Value { get; }
-        DateTime? Date { get; }
+        DateOnly? Date { get; }
         string Notes { get; }
         double? OriginalValue { get; }
         DateTime CreateDateTime { get; }

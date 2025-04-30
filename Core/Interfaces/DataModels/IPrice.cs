@@ -3,7 +3,7 @@
     public interface IPrice
     {
         ISecurity Security { get; }
-        DateTime Date { get; }
+        DateOnly Date { get; }
         double Last { get; }
         double Volume { get; }
         DateTime CreateDateTime { get; }

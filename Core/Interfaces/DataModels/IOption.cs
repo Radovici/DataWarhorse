@@ -2,7 +2,7 @@
 {
     public interface IOption : ISecurity
     {
-        DateTime ExpirationDate { get; }
+        DateOnly ExpirationDate { get; }
         double StrikePrice { get; }
         bool IsCall { get; }
     }

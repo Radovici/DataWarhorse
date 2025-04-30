@@ -13,9 +13,9 @@
         double Multiplier { get; }
 
         // NOTE: this was DW's 2019 codebase; commented out for the time-being.
-        //SortedDictionary<DateTime, IPrice> Prices { get; }
-        //SortedDictionary<DateTime, double> Returns { get; }
-        //SortedDictionary<DateTime, IEquitySplit> Splits { get; }
+        //SortedDictionary<DateOnly, IPrice> Prices { get; }
+        //SortedDictionary<DateOnly, double> Returns { get; }
+        //SortedDictionary<DateOnly, IEquitySplit> Splits { get; }
 
         //bool IsOption { get; }
         //bool IsEquity { get; }
