@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DataModels.UserData;
+﻿namespace DataModels.UserData;
 
 public partial class UserSession
 {
@@ -11,7 +8,7 @@ public partial class UserSession
 
     public string Guid { get; set; } = null!;
 
-    public DateTime Expiration { get; set; }
+    public DateOnly Expiration { get; set; }
 
     public string Comment { get; set; } = null!;
 
