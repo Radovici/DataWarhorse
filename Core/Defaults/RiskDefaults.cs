@@ -2,7 +2,7 @@
 {
     public static class RiskDefaults
     {
-        public static Func<DateTime> DefaultDate = () => DateTime.Today;
+        public static Func<DateOnly> DefaultDate = () => DateOnly.FromDateTime(DateTime.Today);
         public static readonly int DefaultBetaRange = 256;
         public static readonly string DefaultBetaIndex = "SPX";
         public static readonly int DefaultValueAtRiskRange = 512;
