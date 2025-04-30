@@ -27,7 +27,7 @@ public class TradeServiceTests
                     TradeId = 1,
                     FundId = 1,
                     SecurityId = 1,
-                    TradeDate = DateTime.Now,
+                    TradeDate = DateOnly.FromDateTime(DateTime.Today),
                     Quantity = 100,
                     Price = 10,
                     CreateDateTime = DateTime.Now
