@@ -52,7 +52,7 @@ public class TradeServiceTests
 
         // Act
         var trades = tradeService.QueryableTrades;
-        DateTime maxTradeDate = trades
+        DateOnly maxTradeDate = trades
             .Select(lmb => lmb.TradeDate)
             .Max();
         var maxTradeDateTrades = trades.Where(lmb => lmb.TradeDate == maxTradeDate);
