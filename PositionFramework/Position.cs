@@ -65,7 +65,7 @@ namespace PositionFramework
         {
             get
             {
-                DateTime startDate = StartDate;
+                DateOnly startDate = StartDate;
                 IEnumerable<IDailyPosition> dailyPositions = DailyPositions.Where(lmb => lmb.Date == startDate);
                 PositionGrouping positionGrouping = new PositionGrouping(_positionGrouping, startDate, null, null, null, null, null, null, null, null);
                 Position startPosition = new Position(this, positionGrouping, dailyPositions);
@@ -77,7 +77,7 @@ namespace PositionFramework
         {
             get
             {
-                DateTime endDate = EndDate;
+                DateOnly endDate = EndDate;
                 IEnumerable<IDailyPosition> dailyPositions = DailyPositions.Where(lmb => lmb.Date == endDate);
                 PositionGrouping positionGrouping = new PositionGrouping(_positionGrouping, endDate, null, null, null, null, null, null, null, null);
                 Position endPosition = new Position(this, positionGrouping, dailyPositions);
@@ -86,16 +86,16 @@ namespace PositionFramework
         }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime StartDate { get { return _dailyPositions.Min(lmb => lmb.Date); } }
+        public DateOnly StartDate { get { return _dailyPositions.Min(lmb => lmb.Date); } }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime EndDate { get { return _dailyPositions.Max(lmb => lmb.Date); } }
+        public DateOnly EndDate { get { return _dailyPositions.Max(lmb => lmb.Date); } }
 
         public IEnumerable<IDailyPosition> StartDailyPositions
         {
             get
             {
-                DateTime date = StartDate;
+                DateOnly date = StartDate;
                 return _dailyPositions.Where(lmb => lmb.Date == date);
             }
         }
@@ -104,7 +104,7 @@ namespace PositionFramework
         {
             get
             {
-                DateTime date = EndDate;
+                DateOnly date = EndDate;
                 return _dailyPositions.Where(lmb => lmb.Date == date);
             }
         }

@@ -107,8 +107,8 @@ namespace PositionFramework
         public IPosition? Parent { get { return null; } } // HACK (20180716): IPosition Parent doesn't work for IDailyPositions
         public IEnumerable<IDailyPosition> DailyPositions { get { return new[] { this }; } }
         public PositionGrouping Grouping { get { return this.GetGrouping(); } }
-        public DateTime StartDate { get { return this.GetStartDate(); } }
-        public DateTime EndDate { get { return this.GetEndDate(); } }
+        public DateOnly StartDate { get { return this.GetStartDate(); } }
+        public DateOnly EndDate { get { return this.GetEndDate(); } }
         public double Pnl => throw new NotImplementedException(); // TODO: implement this -- bit tricky with intraday trades and varying security types.
 
         public double OpenMarketValue => throw new NotImplementedException();
@@ -137,6 +137,6 @@ namespace PositionFramework
 
         public double EndAum => throw new NotImplementedException();
 
-        DateTime IDailyPosition.Date => throw new NotImplementedException();
+        DateOnly IDailyPosition.Date => throw new NotImplementedException();
     }
 }

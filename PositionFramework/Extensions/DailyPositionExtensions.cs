@@ -12,12 +12,12 @@ namespace PositionFramework.Extensions
             return new PositionGrouping(dailyPosition.Date, dailyPosition.Fund, dailyPosition.Security, underlyer: dailyPosition.Security.UnderlyingSecurity);
         }
 
-        public static DateTime GetStartDate(this IDailyPosition dailyPosition)
+        public static DateOnly GetStartDate(this IDailyPosition dailyPosition)
         {
             return dailyPosition.Date;
         }
 
-        public static DateTime GetEndDate(this IDailyPosition dailyPosition)
+        public static DateOnly GetEndDate(this IDailyPosition dailyPosition)
         {
             return dailyPosition.Date;
         }

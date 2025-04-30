@@ -41,7 +41,7 @@ namespace DataLayer.Positions
         public static string MethodName => new StackTrace().GetFrame(1)?.GetMethod()?.Name ?? throw new ArgumentOutOfRangeException("Unable to get MethodName from StackTrace().GetFrame(1)?.GetMethod()?.Name. Consider outputting details.");
 
         private readonly string _key;
-        private readonly DateTime? _date;
+        private readonly DateOnly? _date;
         private readonly IFund? _fund;
         private readonly ISecurity? _security;
         private readonly ISecurity? _underlyer;
@@ -56,7 +56,7 @@ namespace DataLayer.Positions
 
         public static readonly PositionGrouping Empty = new PositionGrouping(string.Empty);
 
-        public PositionGrouping(DateTime? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
+        public PositionGrouping(DateOnly? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
             string? sector = null, string? industry = null, string? country = null, string? region = null, string? currency = null,
             bool? isLong = null, ISecurity? factor = null)
             : this(null, date, fund, security, underlyer, sector, industry, country, region, currency, isLong, factor)
@@ -64,7 +64,7 @@ namespace DataLayer.Positions
 
         }
 
-        public PositionGrouping(PositionGrouping? positionGroupBy, DateTime? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
+        public PositionGrouping(PositionGrouping? positionGroupBy, DateOnly? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
             string? sector = null, string? industry = null, string? country = null, string? region = null, string? currency = null, bool? isLong = null, ISecurity? factor = null)
             : this(GetKey(date, fund, security, underlyer, sector, industry, country, region, currency, isLong, factor))
         {
@@ -93,7 +93,7 @@ namespace DataLayer.Positions
             _key = key; //NOTE: need to use the explicit groupings because you need the objects OR string display names
         }
 
-        public static string GetKey(DateTime? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
+        public static string GetKey(DateOnly? date = null, IFund? fund = null, ISecurity? security = null, ISecurity? underlyer = null,
             string? sector = null, string? industry = null, string? country = null, string? region = null, string? currency = null,
             bool? isLong = null, ISecurity? factor = null)
         {
@@ -108,7 +108,7 @@ namespace DataLayer.Positions
             //    region ?? string.Empty,
             //    currency ?? string.Empty
             //    );
-            string key = "Date=" + (date ?? default(DateTime)).ToString("yyyyMMdd")
+            string key = "Date=" + (date ?? default(DateOnly)).ToString("yyyyMMdd")
                 + "&Fund=" + (fund ?? DataModels.PositionData.Fund.Null).Id
                 + "&Security=" + (security ?? DataModels.SecurityMaster.Security.Null).Name
                 + "&Underlyer=" + (underlyer ?? DataModels.SecurityMaster.Security.Null).Name
@@ -122,7 +122,7 @@ namespace DataLayer.Positions
             return key;
         }
 
-        public DateTime? Date { get { return _date; } }
+        public DateOnly? Date { get { return _date; } }
         public IFund? Fund { get { return _fund; } }
         public ISecurity? Security { get { return _security; } }
         public ISecurity? Underlyer { get { return _underlyer; } }
