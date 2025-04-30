@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CommonFunctions
+﻿namespace CommonFunctions
 {
     public static class DoubleExtensions
     {
@@ -13,6 +7,6 @@ namespace CommonFunctions
             return (Math.Abs(value) < 0.00001); // Double.Epsilon);
         }
 
-        public static DateTime Min(DateTime dt1, DateTime dt2) { return dt1 < dt2 ? dt1 : dt2; }
+        public static DateOnly Min(DateOnly dt1, DateOnly dt2) { return dt1 < dt2 ? dt1 : dt2; }
     }
 }
