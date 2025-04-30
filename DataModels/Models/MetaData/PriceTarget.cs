@@ -10,7 +10,7 @@ public partial class PriceTarget
 
     public double? Price { get; set; }
 
-    public DateTime? TargetDate { get; set; }
+    public DateOnly? TargetDate { get; set; }
 
     public string? Notes { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿namespace DataModels.Metadata;
 
-public partial class Target {
+public partial class Target
+{
     public int Id { get; set; }
 
     public int UserId { get; set; }
@@ -15,7 +16,7 @@ public partial class Target {
 
     public double? Value { get; set; }
 
-    public DateTime? Date { get; set; }
+    public DateOnly? Date { get; set; }
 
     public string? Notes { get; set; }
 
