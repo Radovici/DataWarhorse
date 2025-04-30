@@ -8,7 +8,7 @@ public partial class InvestmentFee
 
     public int FeeId { get; set; }
 
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     public virtual Fee Fee { get; set; } = null!;
 

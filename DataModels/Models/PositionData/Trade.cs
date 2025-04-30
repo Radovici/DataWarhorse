@@ -10,7 +10,7 @@ public partial class Trade : ITradeData
 
     public int SecurityId { get; set; }
 
-    public DateTime TradeDate { get; set; }
+    public DateOnly TradeDate { get; set; }
 
     public double Quantity { get; set; }
 

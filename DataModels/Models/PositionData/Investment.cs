@@ -6,7 +6,7 @@ public partial class Investment
 
     public int FundId { get; set; }
 
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     public double Change { get; set; }
 

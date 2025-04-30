@@ -6,7 +6,7 @@ public partial class SavedDailyPosition
 
     public int SecurityId { get; set; }
 
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     public double StartQuantity { get; set; }
 
