@@ -8,6 +8,6 @@ namespace Core.Interfaces.Services
         ISecurity Spx { get; }
         ISecurity? GetSecurity(string symbol);
         ISecurity? GetSecurity(int securityId);
-        double GetMarketValue(ISecurity security, DateTime date, double quantity);
+        double GetMarketValue(ISecurity security, DateOnly date, double quantity);
     }
 }

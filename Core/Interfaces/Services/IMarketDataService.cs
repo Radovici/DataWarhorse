@@ -4,7 +4,7 @@ namespace Core.Interfaces.Services
 {
     public interface IMarketDataService
     {
-        double? GetPrice(ISecurity security, DateTime date);
+        double? GetPrice(ISecurity security, DateOnly date);
     }
 
 }
