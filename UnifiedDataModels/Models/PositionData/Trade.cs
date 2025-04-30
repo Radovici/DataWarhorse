@@ -20,7 +20,7 @@ namespace UnifiedDataModels.Models.PositionData
 
         public IFund Fund => (IFund)_trade.Fund;
 
-        public DateTime TradeDate => this._trade.TradeDate;
+        public DateOnly TradeDate => this._trade.TradeDate;
 
         public double Quantity => this._trade.Quantity;
 
