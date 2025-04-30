@@ -2,7 +2,7 @@
 
 public partial class EquityPrice
 {
-    public DateTime Date { get; private set; }
+    public DateOnly Date { get; private set; }
 
     public int SecurityId { get; private set; }
 

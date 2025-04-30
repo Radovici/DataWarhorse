@@ -6,7 +6,7 @@ public partial class OptionPrice
 
     public int? SourceId { get; private set; }
 
-    public DateTime Date { get; private set; }
+    public DateOnly Date { get; private set; }
 
     public double Last { get; private set; }
 
