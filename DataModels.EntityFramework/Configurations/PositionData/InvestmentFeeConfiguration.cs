@@ -12,7 +12,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
 
             entity.ToTable("InvestmentFees", "dbo");
 
-            entity.Property(e => e.Date).HasColumnType("smalldatetime");
+            entity.Property(e => e.Date).HasColumnType("smalldatetime").HasConversion(EquityPriceConfiguration.DateOnlyConverter);
 
             entity.HasOne(d => d.Fee).WithMany(p => p.InvestmentFees)
                 .HasForeignKey(d => d.FeeId)

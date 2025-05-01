@@ -12,7 +12,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
 
             entity.Property(e => e.Comment)
                 .HasMaxLength(100);
-            entity.Property(e => e.Expiration).HasColumnType("datetime");
+            entity.Property(e => e.Expiration).HasColumnType("datetime").HasConversion(EquityPriceConfiguration.DateOnlyConverter);
             entity.Property(e => e.Guid)
                 .HasMaxLength(100);
 

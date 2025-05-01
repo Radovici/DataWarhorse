@@ -12,7 +12,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
 
             entity.Property(e => e.TradeId).ValueGeneratedNever();
             entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
-            entity.Property(e => e.TradeDate).HasColumnType("smalldatetime");
+            entity.Property(e => e.TradeDate).HasColumnType("smalldatetime").HasConversion(EquityPriceConfiguration.DateOnlyConverter);
 
             // NOTE: ignore these for now; we probably need them but they aren't mapped
             entity.Ignore(lmb => lmb.CurrencyId);

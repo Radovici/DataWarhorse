@@ -16,7 +16,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Notes)
                 .HasMaxLength(50);
-            entity.Property(e => e.TargetDate).HasColumnType("smalldatetime");
+            entity.Property(e => e.TargetDate).HasColumnType("smalldatetime").HasConversion(EquityPriceConfiguration.DateOnlyConverter);
         }
     }
 }

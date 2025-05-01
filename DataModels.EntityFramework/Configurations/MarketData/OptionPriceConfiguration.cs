@@ -12,7 +12,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
 
             entity.ToTable("OptionPrices", "dbo");
 
-            entity.Property(e => e.Date).HasColumnType("smalldatetime");
+            entity.Property(e => e.Date).HasColumnType("smalldatetime").HasConversion(EquityPriceConfiguration.DateOnlyConverter);
         }
     }
 }

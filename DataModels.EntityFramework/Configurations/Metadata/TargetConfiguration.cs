@@ -13,7 +13,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
             entity.HasIndex(e => new { e.UserId, e.FundId, e.SecurityId, e.Formula, e.Date, e.CreateDateTime }, "UK_Targets").IsUnique();
 
             entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
-            entity.Property(e => e.Date).HasColumnType("smalldatetime");
+            entity.Property(e => e.Date).HasColumnType("smalldatetime").HasConversion(EquityPriceConfiguration.DateOnlyConverter);
             entity.Property(e => e.Formula)
                 .HasMaxLength(50);
             entity.Property(e => e.IsActive).HasDefaultValue(true);

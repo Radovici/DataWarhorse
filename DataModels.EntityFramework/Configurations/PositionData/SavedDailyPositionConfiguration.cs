@@ -12,7 +12,7 @@ namespace DataModels.EntityFramework.Configurations.SecurityMaster
 
             entity.ToTable("SavedDailyPositions", "dbo");
 
-            entity.Property(e => e.Date).HasColumnType("smalldatetime");
+            entity.Property(e => e.Date).HasColumnType("smalldatetime").HasConversion(EquityPriceConfiguration.DateOnlyConverter);
             entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
 
             entity.HasOne(d => d.Fund).WithMany(p => p.SavedDailyPositions)
