@@ -44,6 +44,4 @@ public partial class Security : ISecurity
     ISecurityType ISecurity.SecurityType => throw new NotImplementedException();
 
     public DateOnly MaxDate => throw new NotImplementedException();
-
-    DateOnly ISecurity.MaxDate => throw new NotImplementedException();
 }
