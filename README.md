@@ -70,3 +70,7 @@ As the platform is brought back online and modernized, we’ll add:
 ---
 
 ![CI](https://github.com/Radovici/DataWarhorse/actions/workflows/ci.yml/badge.svg)
+
+---
+
+Note on hedge fund software and why thrir software is turrible.
