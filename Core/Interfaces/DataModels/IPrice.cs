@@ -4,7 +4,7 @@
     {
         ISecurity Security { get; }
         DateOnly Date { get; }
-        double Last { get; }
+        double EndPrice { get; }
         double Volume { get; }
         DateTime CreateDateTime { get; }
     }

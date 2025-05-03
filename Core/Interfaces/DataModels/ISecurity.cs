@@ -22,7 +22,8 @@
         //bool IsEquityOption { get; }
 
         //double Beta { get; }
-        DateOnly MaxDate { get; }
+        DateOnly StartDate { get; } // NOTE: IpoDate is a better name, but this is consistent with the rest of the codebase
+        DateOnly EndDate { get; }
         //string Sector { get; }
         //string Industry { get; }
         //string Country { get; }
