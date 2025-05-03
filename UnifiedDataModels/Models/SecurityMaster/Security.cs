@@ -32,11 +32,19 @@ namespace UnifiedDataModels.Models.SecurityMaster
 
         public string Name => _security.Name;
 
-        public DateOnly MaxDate
+        public DateOnly StartDate
         {
             get
             {
-                return DateOnly.FromDateTime(DateTime.Today); //_marketDataService
+                return this._marketDataService.GetPrices(this).Min(lmb => lmb.Date);
+            }
+        }
+
+        public DateOnly EndDate
+        {
+            get
+            {
+                return this._marketDataService.GetPrices(this).Max(lmb => lmb.Date);
             }
         }
     }
