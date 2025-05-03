@@ -1,6 +1,8 @@
-﻿namespace DataModels.MarketData;
+﻿using Core.Interfaces.DataModels;
 
-public partial class EquityPrice
+namespace DataModels.MarketData;
+
+public partial class EquityPrice : IPrice
 {
     public DateOnly Date { get; private set; }
 
@@ -21,4 +23,6 @@ public partial class EquityPrice
     public DateTime CreateDateTime { get; private set; }
 
     public Source? Source { get; private set; }
+
+    public ISecurity Security => throw new NotImplementedException();
 }
