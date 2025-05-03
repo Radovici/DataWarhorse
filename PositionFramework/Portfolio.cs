@@ -19,12 +19,12 @@ namespace PositionFramework
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            IEnumerable<DateOnly> dates = new List<DateOnly>(); // DataApi.Singleton.PricingStartDate.To(DataApi.Singleton.PricingEndDate, true).ToList();
+            IEnumerable<DateOnly> dates = trades.Min(lmb => lmb.TradeDate).To(DateOnly.FromDateTime(DateTime.Today), true); // new List<DateOnly>(); // DataApi.Singleton.PricingStartDate.To(DataApi.Singleton.PricingEndDate, true).ToList();
             List<DailyPosition> dailyPositions = new List<DailyPosition>();
             foreach (var tradesByDailyPositionGrouping in trades.GroupBy(lmb => new { lmb.Fund, lmb.Security })) // NOTE: GroupBy DailyPositionGrouping (finest granularity)
             {
                 Console.Write(string.Format("Creating DailyPositions for Fund={0}, Security={1}.", tradesByDailyPositionGrouping.Key.Fund.Name, tradesByDailyPositionGrouping.Key.Security.Name));
-                DateOnly maxSecurityDate = tradesByDailyPositionGrouping.Key.Security.MaxDate; // dates.Max();
+                DateOnly maxSecurityDate = tradesByDailyPositionGrouping.Key.Security.EndDate; // dates.Max();
                 SortedDictionary<DateOnly, IEnumerable<ITrade>> tradesByDate =
                     new SortedDictionary<DateOnly, IEnumerable<ITrade>>(
                         tradesByDailyPositionGrouping.GroupBy(lmb => lmb.TradeDate).ToDictionary(lmb => lmb.Key,
