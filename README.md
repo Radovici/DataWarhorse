@@ -73,4 +73,4 @@ As the platform is brought back online and modernized, we’ll add:
 
 ---
 
-Note on hedge fund software and why thrir software is turrible.
+Note on hedge fund software and why their software is turrible (sic).
