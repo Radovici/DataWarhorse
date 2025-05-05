@@ -111,7 +111,7 @@ namespace PositionFramework
 
         public IEnumerable<IDailyPosition> DailyPositions { get { return _dailyPositions; } }
 
-        public double Pnl => throw new NotImplementedException();
+        public double Pnl => this._dailyPositions.Sum(lmb => lmb.Pnl);
 
         public double OpenMarketValue => throw new NotImplementedException();
 
