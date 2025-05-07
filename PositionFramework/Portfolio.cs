@@ -1,5 +1,6 @@
 ﻿using CommonFunctions;
 using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
 using DataLayer.Positions;
 using System.Diagnostics;
 
@@ -7,15 +8,17 @@ namespace PositionFramework
 {
     public class Portfolio : Position
     {
-        public Portfolio(IEnumerable<IDailyPosition> dailyPositions) : base(null, PositionGrouping.Empty, dailyPositions) //new DailyPositionGrouping(dailyPositions))
+        public Portfolio(IEnumerable<IDailyPosition> dailyPositions)
+            : base(null, PositionGrouping.Empty, dailyPositions) // new DailyPositionGrouping(dailyPositions))
         {
         }
 
-        public Portfolio(IEnumerable<ITrade> trades) : this(GetDailyPositions(trades))
+        public Portfolio(IEnumerable<ITrade> trades, IMarketDataService marketDataService)
+            : this(GetDailyPositions(trades, marketDataService))
         {
         }
 
-        public static IEnumerable<IDailyPosition> GetDailyPositions(IEnumerable<ITrade> trades) //IGrouping<PositionGroupBy, IDailyPosition>
+        public static IEnumerable<IDailyPosition> GetDailyPositions(IEnumerable<ITrade> trades, IMarketDataService marketDataService) //IGrouping<PositionGroupBy, IDailyPosition>
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -40,7 +43,7 @@ namespace PositionFramework
                     IEnumerable<ITrade>? datedTrades;
                     if (tradesByDate.TryGetValue(dt, out datedTrades))
                     {
-                        dailyPositions.Add(previousDailyPosition = new DailyPosition(dt, datedTrades, previousDailyPosition));
+                        dailyPositions.Add(previousDailyPosition = new DailyPosition(dt, datedTrades, previousDailyPosition, marketDataService));
                         quantity += previousDailyPosition.TradedQuantity;
                         //foreach(ITrade trade in datedTrades) //TODO: dailyPosition should have multiple trades
                         //{
@@ -61,7 +64,7 @@ namespace PositionFramework
                                 continue; //there are more trades later                                
                             }
                         }
-                        dailyPositions.Add(previousDailyPosition = new DailyPosition(dt, null, previousDailyPosition));
+                        dailyPositions.Add(previousDailyPosition = new DailyPosition(dt, null, previousDailyPosition, marketDataService));
                     }
                 }
                 Console.WriteLine();

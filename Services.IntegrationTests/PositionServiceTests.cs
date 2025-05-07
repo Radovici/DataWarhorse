@@ -66,12 +66,13 @@ public class PositionServiceTests
     {
         using var scope = _host.Services.CreateScope();
         var tradeService = scope.ServiceProvider.GetRequiredService<ITradeService>();
+        var marketDataService = scope.ServiceProvider.GetRequiredService<IMarketDataService>();
 
         // Act
         var queryableTrades = tradeService.QueryableTrades.Take(10);
         var trades = tradeService.GetUnifiedTrades(queryableTrades);
         _output.WriteLine($"Number of trades = {trades.Count()}.");
-        Portfolio portfolio = new Portfolio(trades); // TODO: when creating a portfolio -- either from trades or dailyPositions -- we need a reference to security and market data providers
+        Portfolio portfolio = new Portfolio(trades, marketDataService); // TODO: when creating a portfolio -- either from trades or dailyPositions -- we need a reference to security and market data providers
 
         // Assert
         Assert.True(portfolio.Pnl != 0, "There should be pnl.");

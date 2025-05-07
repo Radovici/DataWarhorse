@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces.DataModels;
+using Core.Interfaces.Services;
 using DataLayer.Positions;
 using PositionFramework.Extensions;
 
@@ -9,6 +10,7 @@ namespace PositionFramework
         private readonly DateOnly _date;
         private readonly IEnumerable<ITrade>? _trades;
         private readonly DailyPosition? _previousDailyPosition;
+        private readonly IMarketDataService _marketDataService;
 
         private readonly IFund _fund;
         private readonly ISecurity _security;
@@ -19,8 +21,9 @@ namespace PositionFramework
         /// <summary>
         /// A DailyPosition can be made up of a previous DailyPosition (last business date's DailyPosition) and today's trades.
         /// </summary>
-        public DailyPosition(DateOnly dt, IEnumerable<ITrade>? trades, DailyPosition? previousDailyPosition)
+        public DailyPosition(DateOnly dt, IEnumerable<ITrade>? trades, DailyPosition? previousDailyPosition, IMarketDataService marketDataService)
         {
+            this._marketDataService = marketDataService;
             if (trades != null && trades.Any())
             {
                 var funds = trades.Select(lmb => lmb.Fund).Distinct().ToList();
@@ -109,13 +112,16 @@ namespace PositionFramework
         public PositionGrouping Grouping { get { return this.GetGrouping(); } }
         public DateOnly StartDate { get { return this.GetStartDate(); } }
         public DateOnly EndDate { get { return this.GetEndDate(); } }
-        public double Pnl => throw new NotImplementedException(); // TODO: implement this -- bit tricky with intraday trades and varying security types.
+        public double Pnl => this.EndMarketValue - (this.StartMarketValue + this.OpenMarketValue); // this._marketDataService.GetPrice(this.Security, this.Date); // TODO: implement this -- bit tricky with intraday trades and varying security types.
 
-        public double OpenMarketValue => throw new NotImplementedException();
+        public double OpenMarketValue => 0;
+        // this.Trades
+        //.Where(lmb => lmb.TradeType == TradeType.Open)
+        //.Sum(lmb => lmb.Quantity * this._marketDataService.GetPrice(this.Security, this.Date).GetValueOrDefault(0));
 
-        public double StartMarketValue => throw new NotImplementedException();
+        public double StartMarketValue => this._previousDailyPosition?.EndMarketValue ?? 0;
 
-        public double EndMarketValue => throw new NotImplementedException();
+        public double EndMarketValue => this.EndQuantity * this._marketDataService.GetPrice(this.Security, this.Date).GetValueOrDefault(0);
 
         public double StartDeltaExposure => throw new NotImplementedException();
 
