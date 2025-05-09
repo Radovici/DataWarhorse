@@ -16,8 +16,8 @@ namespace Services.MarketData
         public double? GetPrice(ISecurity security, DateOnly date)
         {
             // Add fallback logic, pricing model overrides, etc. as needed
-            var price = this.GetPrices(security)
-                .SingleOrDefault(lmb => lmb.Date == date); // TODO: assumes one price per security per day (or DateOnly), not intraday whose tick data would use DateTime rather than DateOnly
+            var prices = this.GetPrices(security);
+            var price = prices?.SingleOrDefault(lmb => lmb.Date == date); // TODO: assumes one price per security per day (or DateOnly), not intraday whose tick data would use DateTime rather than DateOnly
             return price?.EndPrice;
         }
 
