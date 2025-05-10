@@ -1,6 +1,6 @@
 # DataWarhorse
 
-DataWarhorse combines battle-tested financial analysis to provide the best fianncial business analysis and risk management on the street. Now modernized with the latest generative artificial intelligence to construct and optimize portfolios. It’s a modular, datastore-agnostic platform designed for clarity, extensibility, and correctness—revived and open-sourced after years of sitting on the shelf after an unsuccessful startup.
+DataWarhorse combines battle-tested financial software to provide the best financial analysis and risk management on the street. Now modernized with the latest generative artificial intelligence to construct and optimize portfolios. It’s a modular, datastore-agnostic platform designed for clarity, extensibility, and correctness—revived and open-sourced after years of sitting on the shelf after an unsuccessful startup.
 
 ![CI](https://github.com/Radovici/DataWarhorse/actions/workflows/ci.yml/badge.svg)
 
