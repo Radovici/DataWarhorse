@@ -73,4 +73,5 @@ As the platform is brought back online and modernized, we’ll add:
 
 ---
 
-Note on hedge fund software and why their software is turrible (sic).
+- Note on hedge fund software and why their software is turrible (sic).
+- OpenApi and MCP LLM integration
