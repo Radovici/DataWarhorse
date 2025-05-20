@@ -76,5 +76,5 @@ As the platform is brought back online and modernized, we’ll add:
 - OpenApi and MCP LLM integration using ModelContextProtocol C# SDK
 - Note on hedge fund software and why their software is turrible (sic).
 - Domain driven design. Finance has a gap.
-- test commit 02
+- test commit 03
 
