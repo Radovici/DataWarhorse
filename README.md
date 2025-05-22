@@ -1,4 +1,4 @@
-# DataWarhorse
+no# DataWarhorse
 
 DataWarhorse combines battle-tested financial software to provide the best financial analysis and risk management on the street. Now modernized with the latest generative AI to construct and optimize portfolios. It’s a modular, datastore-agnostic platform designed for clarity, extensibility, and correctness—revived and open-sourced after years of sitting on the shelf after an unsuccessful startup.
 
@@ -76,5 +76,5 @@ As the platform is brought back online and modernized, we’ll add:
 - OpenApi and MCP LLM integration using ModelContextProtocol C# SDK
 - Note on hedge fund software and why their software is turrible (sic).
 - Domain driven design. Finance has a gap.
-- test commit 04
+- test commit 05
 
