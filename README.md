@@ -78,5 +78,5 @@ As the platform is brought back online and modernized, we’ll add:
 - Note on hedge fund software and why their software is turrible (sic).
 - Domain driven design. Finance has a gap.
 - Previous firm did an arithmetic difference of market, security, country, and sector returns to perform attribution analysis. They went so far (wrong) as to call the terms alpha, beta, etc. This is a top-ten hedge fund.
-- test commit 05
+- test commit 06
 
